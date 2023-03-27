@@ -5,15 +5,22 @@ library(jsonlite)
 library(shinyWidgets)
 library(glue)
 
-questions_df <- read_csv("questions.csv")
-questions <- questions_df %>% pull(questionText)
-question_types <- questions_df %>% distinct(inputType) %>% pull(inputType)
-n_questions <- nrow(questions_df)
+source("utils.R")
+
+#questions_df <- read_csv("questions.csv")
+#questions <- questions_df %>% pull(questionText)
+question_info <- load_question_info()
+questions <- question_info$questions
+question_types <- question_info$question_types
+question_themes <- question_info$question_themes
+n_questions <- length(questions)
+
 # group questions
-A <- questions[1:2]
-B <- questions[3:5]
-questions <- list("A" = A, "B" = B)
-choices <- jsonlite::fromJSON("choices.json")
+#A <- questions[1:2]
+#B <- questions[3:5]
+#questions <- list("A" = A, "B" = B)
+questions <- split(questions,question_themes)
+
 data <- read_csv("data.csv")
 users <- data %>% distinct(AgroID) %>% pull(AgroID)
 users <- append(users,'admin')
@@ -82,9 +89,9 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
     )
   )
   
-  server <- function(input, output, session) {
+server <- function(input, output, session) {
     
-    source("utils.R")
+    values <- reactiveValues(n_questions = n_questions)
     
     output$userdata <- renderDataTable({
       user_data %>% filter(AgroID == input$select_user)
@@ -100,6 +107,7 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
         box(title = "Tilføj spørgsmål",
             textAreaInput("new_question_text", "Tekst"),
             selectInput("new_question_type", "Type", choices = question_types),
+            selectInput("new_question_theme", "Tema", choices = question_themes),
             textAreaInput("new_question_choices", "Valgmuligheder", placeholder = "Separér værdier med komma"),
             actionButton("create_question","Send")
         )
@@ -110,11 +118,15 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
     
     observeEvent(input$create_question, {
       
-      create_new_question(    n_questions = n_questions,
-                              new_question_text = input$new_question_text,
-                              new_question_type = input$new_question_type,
-                              new_question_choices = input$new_question_choices)
+      create_new_question(
+        n_questions = values$n_questions,
+        new_question_text = input$new_question_text,
+        new_question_type = input$new_question_type,
+        new_question_theme = input$new_question_theme,
+        new_question_choices = input$new_question_choices
+      )
       
+      values$n_questions = values$n_questions+1
     })
   
     

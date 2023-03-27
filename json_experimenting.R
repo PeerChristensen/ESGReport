@@ -1,5 +1,6 @@
 
 library(tidyverse)
+
 questions_df <- read_csv("questions.csv") %>% select(-choice)
 questions_ids <- questions_df %>% pull(questionID)
 
@@ -30,3 +31,10 @@ for (row in 1:nrow(questions_df)) {
   question_id <- data %>% pull(questionID)
   write_json(data, glue::glue("questions/{question_id}.json"))
 }
+
+question_files <- list.files("questions", full.names = T)
+questions <- map(question_files,fromJSON) %>%
+  map(pull,questionText) %>% 
+  unlist()
+
+
