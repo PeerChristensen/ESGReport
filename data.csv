@@ -1,0 +1,20 @@
+AgroID,Dato,questionID,questionText,answer
+bruger1,2022-01-01,q1,hvad er dit navn?,ABC
+bruger1,2022-01-01,q2,hvad er din alder?,40
+bruger1,2022-01-01,q3,hvilken landsdel bor du i?,Jylland
+bruger1,2022-01-01,q4,hvor mange dyr ejer du?,5
+bruger1,2022-01-01,q5,hvordan g√•r det ellers?,Det går godt
+bruger2,2022-01-01,q1,hvad er dit navn?,DEF
+bruger2,2022-01-01,q2,hvad er din alder?,45
+bruger2,2022-01-01,q3,hvilken landsdel bor du i?,Fyn
+bruger2,2022-01-01,q4,hvor mange dyr ejer du?,32
+bruger2,2022-01-01,q5,hvordan g√•r det ellers?,Skidt
+bruger1,2021-01-01,q1,hvad er dit navn?,ABC
+bruger1,2021-01-01,q2,hvad er din alder?,39
+bruger1,2021-01-01,q3,hvilken landsdel bor du i?,Jylland
+bruger1,2021-01-01,q4,hvor mange dyr ejer du?,4
+bruger2,2020-01-01,q1,hvad er dit navn?,DEF
+bruger2,2020-01-01,q2,hvad er din alder?,44
+bruger2,2020-01-01,q3,hvilken landsdel bor du i?,Fyn
+bruger2,2020-01-01,q4,hvor mange dyr ejer du?,32
+bruger2,2020-01-01,q5,hvordan g√•r det ellers?,Nogenlunde

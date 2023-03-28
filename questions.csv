@@ -1,0 +1,6 @@
+questionID,questionText,inputType,choice
+q1,hvad er dit navn?,text,
+q2,hvad er din alder?,numeric,
+q3,hvilken landsdel bor du i?,choice,
+q4,hvor mange dyr ejer du?,numeric,
+q5,hvordan går det ellers?,text,

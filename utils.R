@@ -6,7 +6,7 @@ load_question_info <- function() {
   question_texts <- map(question_info,pull,questionText) %>% unlist()
   question_types <- map(question_info,pull,inputType) %>% unlist()
   question_themes <- map(question_info, pull,questionTheme) %>% unlist()
-  list(questions=question_texts,question_types=question_types,question_themes=question_themes)
+  list(question_texts=question_texts,question_types=question_types,question_themes=question_themes)
 }
 
 create_new_question <- function(

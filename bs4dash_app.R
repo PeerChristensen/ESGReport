@@ -7,25 +7,24 @@ library(glue)
 
 source("utils.R")
 
-#questions_df <- read_csv("questions.csv")
-#questions <- questions_df %>% pull(questionText)
+# -------------------------------------------
+# Question selection and data for inputs
 question_info <- load_question_info()
-questions <- question_info$questions
+question_texts <- question_info$question_text
 question_types <- question_info$question_types
 question_themes <- question_info$question_themes
 n_questions <- length(questions)
+questions <- split(question_texts,question_themes)
 
-# group questions
-#A <- questions[1:2]
-#B <- questions[3:5]
-#questions <- list("A" = A, "B" = B)
-questions <- split(questions,question_themes)
-
+# -------------------------------------------
+# User data
 data <- read_csv("data.csv")
 users <- data %>% distinct(AgroID) %>% pull(AgroID)
 users <- append(users,'admin')
 user_data <- read_csv("user_data.csv")
 
+# -------------------------------------------
+# UI
 ui <- dashboardPage(title = "ESGreen Tool Report",
   dashboardHeader(title = "ESGreen Tool Report"),
   dashboardSidebar(
@@ -88,7 +87,10 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
       )
     )
   )
-  
+
+# -------------------------------------------
+# SERVER
+
 server <- function(input, output, session) {
     
     values <- reactiveValues(n_questions = n_questions)
@@ -128,8 +130,6 @@ server <- function(input, output, session) {
       
       values$n_questions = values$n_questions+1
     })
-  
-    
   }
   
-  shinyApp(ui, server)
+shinyApp(ui, server)
