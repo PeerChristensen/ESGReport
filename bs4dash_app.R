@@ -1,5 +1,6 @@
 library(shiny)
 library(bs4Dash)
+library(tidyverse)
 library(shinyjs)
 library(jsonlite)
 library(shinyWidgets)
@@ -11,9 +12,9 @@ source("utils.R")
 # Question selection and data for inputs
 question_info <- load_question_info()
 question_texts <- question_info$question_text
-question_types <- question_info$question_types
-question_themes <- question_info$question_themes
-n_questions <- length(questions)
+question_types <- question_info$question_types %>% unique()
+question_themes <- question_info$question_themes %>% unique()
+n_questions <- length(question_texts) 
 questions <- split(question_texts,question_themes)
 
 # -------------------------------------------
@@ -28,14 +29,18 @@ user_data <- read_csv("user_data.csv")
 ui <- dashboardPage(title = "ESGreen Tool Report",
   dashboardHeader(title = "ESGreen Tool Report"),
   dashboardSidebar(
+    sidebarUserPanel(
+      image = NULL,
+      name = textOutput("welcome")
+    ),
     sidebarMenu(
       menuItem("Hjem", tabName = "home", icon = icon("home")),
       menuItem("Ny rapport", tabName = "new_report", icon = icon("file"),
                menuSubItem(text = "Standard",tabName = "standard")
                ,
-               menuSubItem(text = "Vælg indhold",tabName = "choose")
+               menuSubItem(text = "Vælg indikatorer",tabName = "choose")
       ),
-      menuItem("Gemte rapporter", tabName = "prev_reports", icon = icon("save"),
+      menuItem("Gemte kladder", tabName = "prev_reports", icon = icon("save"),
                menuSubItem(text = "22/2/2022",tabName = "prev_1")
                ,
                menuSubItem(text = "1/1/2022",tabName = "prev_2")
@@ -44,8 +49,8 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
       )
     )
   ),
-  #dashboardControlbar(id = "controlbar",collapsed = FALSE),
-  #dashboardFooter(id = "footer",left = "Copyright etc.."),
+  footer = dashboardFooter(left = "Kontakt, copyright info etc.."),
+  #controlbar = dashboardControlbar(id = "controlbar",collapsed = FALSE),
   dashboardBody(
     tabItems(
       tabItem(tabName = "home",
@@ -59,10 +64,9 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
                               choices = users)
                   ),
               uiOutput("new_question"),
-              
               ),
       tabItem(tabName = "choose",
-              box(title = "Vælg spørgsmål",
+              box(title = "Vælg indikatorer",
                   pickerInput(
                     inputId = "select_questions",
                     label = NULL, 
@@ -95,6 +99,8 @@ server <- function(input, output, session) {
     
     values <- reactiveValues(n_questions = n_questions)
     
+    output$welcome <- renderText({ paste0("Hej ", input$select_user)})
+    
     output$userdata <- renderDataTable({
       user_data %>% filter(AgroID == input$select_user)
     })
@@ -106,17 +112,28 @@ server <- function(input, output, session) {
     new_question_ui <- reactive({
       
       if (req(input$select_user) == "admin") {
-        box(title = "Tilføj spørgsmål",
+        box(title = "Tilføj indikator",
             textAreaInput("new_question_text", "Tekst"),
-            selectInput("new_question_type", "Type", choices = question_types),
             selectInput("new_question_theme", "Tema", choices = question_themes),
-            textAreaInput("new_question_choices", "Valgmuligheder", placeholder = "Separér værdier med komma"),
+            selectInput("new_question_type", "Type", choices = question_types),
+            uiOutput("new_question_ui_choices"),
             actionButton("create_question","Send")
-        )
-      }
+            )
+        }
     })
     
     output$new_question <- renderUI({ new_question_ui()})
+    
+    new_question_ui_choices <- reactive({
+      if (req(input$new_question_type) == "kategorisk") {
+            textAreaInput("new_question_choices", "Valgmuligheder", placeholder = "Separér værdier med komma")
+      }
+      else if (req(input$new_question_type) == "skala") {
+        numericRangeInput("range", "Vælg interval", min=1,max=10, value=c(1,5))
+      }
+    })
+    
+    output$new_question_ui_choices <- renderUI({ new_question_ui_choices()})
     
     observeEvent(input$create_question, {
       

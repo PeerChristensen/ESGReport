@@ -1,6 +1,6 @@
-questionID,questionText,inputType,choice
-q1,hvad er dit navn?,text,
-q2,hvad er din alder?,numeric,
-q3,hvilken landsdel bor du i?,choice,
-q4,hvor mange dyr ejer du?,numeric,
-q5,hvordan går det ellers?,text,
+questionID,questionText,inputType,tema
+q1,hvad er dit navn?,kategorisk,A
+q2,hvad er din alder?,numerisk,B
+q3,hvilken landsdel bor du i?,procent,A
+q4,hvor mange dyr ejer du?,numerisk,B
+q5,hvordan går det ellers?,skala,A

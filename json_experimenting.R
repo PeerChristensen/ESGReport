@@ -22,7 +22,7 @@ tibble(id=id,text=text,type=type, choices=list(choices)) %>%
   toJSON(pretty = T)
 
 
-questions_df <- read_csv("questions.csv") %>% select(-choice)
+questions_df <- read_csv("questions.csv")
 choices <- list("","",c("Jylland","Fyn", "Sjælland"),"","")
 questions_df$choices <- choices
 
