@@ -1,0 +1,18 @@
+
+
+style accordionItem, still need to fix title color, also on hover
+
+    tags$style(
+      HTML(
+        ".card {
+       border: 2px solid green;
+       }
+       .card-header {
+        background: green;
+       font-color: white;
+       }
+       .w-100 {
+       color: white;
+       }"
+      )
+    ),

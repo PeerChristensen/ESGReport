@@ -1,12 +1,12 @@
 
-load_question_info <- function() {
+load_indicator_info <- function() {
   
-  question_files <- list.files("questions", full.names = T)
-  question_info <- map(question_files,fromJSON) 
-  question_texts <- map(question_info,pull,questionText) %>% unlist()
-  question_types <- map(question_info,pull,questionType) %>% unlist()
-  question_themes <- map(question_info, pull,questionTheme) %>% unlist()
-  list(question_texts=question_texts,question_types=question_types,question_themes=question_themes)
+  indicator_files <- list.files("indicators", full.names = T)
+  indicator_info <- map(indicator_files,jsonlite::fromJSON) 
+  indicator_texts <- map(indicator_info,pull,indicatorText) %>% unlist()
+  indicator_types <- map(indicator_info,pull,indicatorType) %>% unlist()
+  indicator_themes <- map(indicator_info, pull,indicatorTheme) %>% unlist()
+  list(indicator_texts=indicator_texts,indicator_types=indicator_types,indicator_themes=indicator_themes)
 }
 
 create_new_indicator <- function(
@@ -18,7 +18,7 @@ create_new_indicator <- function(
     new_indicator_choices,
     new_indicator_scale_min,
     new_indicator_scale_max,
-    new_indicator_active) {
+    new_indicator_status) {
  
   indicator_id = n_indicators + 1
   tibble(indicatorID = indicator_id,
@@ -29,12 +29,15 @@ create_new_indicator <- function(
          indicatorChoices = list(new_indicator_choices),
          indicatorScaleMin = new_indicator_scale_min,
          indicatorScaleMax = new_indicator_scale_max,
-         indicatorActive = new_indicator_active) %>%
+         indicatorStatus = new_indicator_status) %>%
+    mutate(indicatorScaleMin = ifelse(indicatorType == "Skala",indicatorScaleMin,NA),
+           indicatorScaleMax = ifelse(indicatorType == "Skala",indicatorScaleMax,NA),
+           indicatorChoices = ifelse(indicatorType == "Kategorisk", indicatorChoices,NA)) %>%
     write_json(glue("indicators/{indicator_id}.json"))
   }
 
-# update this function to return a UI for questions to fill in
-generate_questions <- function(selected_questions) {
+# update this function to return a UI for indicators to fill in
+generate_indicators <- function(selected_indicators) {
   
   renderUI(
     box(title = "Spørgsmål til udfyldning",

@@ -1,0 +1,17 @@
+
+.card {
+       border: 2px solid green;
+       }
+
+.card-header {
+        background: green;
+       }
+       
+.w-100 {
+       color: orange !important;
+       }
+       
+.card-title w-100 {
+         color: orange !important;
+       }
+       

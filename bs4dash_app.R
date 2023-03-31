@@ -9,13 +9,13 @@ library(glue)
 source("utils.R")
 
 # -------------------------------------------
-# Question selection and data for inputs
-question_info <- load_question_info()
-question_texts <- question_info$question_text
-question_types <- question_info$question_types %>% unique()
-question_themes <- question_info$question_themes %>% unique()
-n_questions <- length(question_texts) 
-questions <- split(question_texts,question_themes)
+# indicator selection and data for inputs
+indicator_info <- load_indicator_info()
+indicator_texts <- indicator_info$indicator_text
+indicator_types <- indicator_info$indicator_types %>% unique()
+indicator_themes <- indicator_info$indicator_themes %>% unique()
+n_indicators <- length(indicator_texts) 
+indicators <- split(indicator_texts,indicator_themes)
 
 # -------------------------------------------
 # User data
@@ -26,25 +26,29 @@ user_data <- read_csv("user_data.csv")
 
 # -------------------------------------------
 # UI
-ui <- dashboardPage(title = "ESGreen Tool Report",
-  dashboardHeader(title = "ESGreen Tool Report"),
+ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
+  dashboardHeader(title = "ESGreen Tool Report"),    
+
   dashboardSidebar(
     sidebarUserPanel(
       image = NULL,
       name = textOutput("welcome")
     ),
     sidebarMenu(
-      menuItem("Hjem", tabName = "home", icon = icon("home")),
+      menuItem("Hjem", tabName = "home", icon = icon("home")
+               ),
       menuItem("Ny rapport", tabName = "new_report", icon = icon("file"),
                menuSubItem(text = "Standard",tabName = "standard")
                ,
                menuSubItem(text = "Vælg indikatorer",tabName = "choose")
-      ),
-      menuItem("Gemte kladder", tabName = "prev_reports", icon = icon("save"),
+               ),
+      menuItem("Gemte kladder", tabName = "drafts", icon = icon("save")
+               ),
+      menuItem("Tidl. rapporter", tabName = "prev_reports", icon = icon("file"),
                menuSubItem(text = "22/2/2022",tabName = "prev_1")
                ,
                menuSubItem(text = "1/1/2022",tabName = "prev_2")
-      ),
+               ),
       menuItem("Data", tabName = "data", icon = icon("database")
       )
     )
@@ -63,14 +67,14 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
                   selectInput("select_user", label = NULL,
                               choices = users)
                   ),
-              uiOutput("new_question"),
+              uiOutput("new_indicator"),
               ),
       tabItem(tabName = "choose",
               box(title = "Vælg indikatorer",
                   pickerInput(
-                    inputId = "select_questions",
+                    inputId = "select_indicators",
                     label = NULL, 
-                    choices = questions,
+                    choices = indicators,
                     options = list(
                       `actions-box` = TRUE,
                       `select-all-text` = "Vælg alle",
@@ -79,9 +83,9 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
                       `selected-text-format` = "count",
                       `count-selected-text` = "{0} spørgsmål valgt"), 
                     multiple = TRUE),
-                  actionButton("gen_questions", "Udfyld rapport")
+                  actionButton("gen_indicators", "Udfyld rapport")
                   ),
-              uiOutput("questions")
+              uiOutput("indicators")
               ),
       tabItem(tabName = "data",
               box(title = "Dine data",width=11,
@@ -97,7 +101,7 @@ ui <- dashboardPage(title = "ESGreen Tool Report",
 
 server <- function(input, output, session) {
     
-    values <- reactiveValues(n_questions = n_questions)
+    values <- reactiveValues(n_indicators = n_indicators)
     
     output$welcome <- renderText({ paste0("Hej ", input$select_user)})
     
@@ -105,47 +109,47 @@ server <- function(input, output, session) {
       user_data %>% filter(AgroID == input$select_user)
     })
     
-    observeEvent(input$gen_questions, {
-      output$questions <- generate_questions(input$select_questions)
+    observeEvent(input$gen_indicators, {
+      output$indicators <- generate_indicators(input$select_indicators)
     })
     
-    new_question_ui <- reactive({
+    new_indicator_ui <- reactive({
       
       if (req(input$select_user) == "admin") {
         box(title = "Tilføj indikator",
-            textAreaInput("new_question_text", "Tekst"),
-            selectInput("new_question_theme", "Tema", choices = question_themes),
-            selectInput("new_question_type", "Type", choices = question_types),
-            uiOutput("new_question_ui_choices"),
-            actionButton("create_question","Send")
+            textAreaInput("new_indicator_text", "Tekst"),
+            selectInput("new_indicator_theme", "Tema", choices = indicator_themes),
+            selectInput("new_indicator_type", "Type", choices = indicator_types),
+            uiOutput("new_indicator_ui_choices"),
+            actionButton("create_indicator","Send")
             )
         }
     })
     
-    output$new_question <- renderUI({ new_question_ui()})
+    output$new_indicator <- renderUI({ new_indicator_ui()})
     
-    new_question_ui_choices <- reactive({
-      if (req(input$new_question_type) == "kategorisk") {
-            textAreaInput("new_question_choices", "Valgmuligheder", placeholder = "Separér værdier med komma")
+    new_indicator_ui_choices <- reactive({
+      if (req(input$new_indicator_type) == "kategorisk") {
+            textAreaInput("new_indicator_choices", "Valgmuligheder", placeholder = "Separér værdier med komma")
       }
-      else if (req(input$new_question_type) == "skala") {
+      else if (req(input$new_indicator_type) == "skala") {
         numericRangeInput("range", "Vælg interval", min=1,max=10, value=c(1,5))
       }
     })
     
-    output$new_question_ui_choices <- renderUI({ new_question_ui_choices()})
+    output$new_indicator_ui_choices <- renderUI({ new_indicator_ui_choices()})
     
-    observeEvent(input$create_question, {
+    observeEvent(input$create_indicator, {
       
-      create_new_question(
-        n_questions = values$n_questions,
-        new_question_text = input$new_question_text,
-        new_question_type = input$new_question_type,
-        new_question_theme = input$new_question_theme,
-        new_question_choices = input$new_question_choices
+      create_new_indicator(
+        n_indicators = values$n_indicators,
+        new_indicator_text = input$new_indicator_text,
+        new_indicator_type = input$new_indicator_type,
+        new_indicator_theme = input$new_indicator_theme,
+        new_indicator_choices = input$new_indicator_choices
       )
       
-      values$n_questions = values$n_questions+1
+      values$n_indicators = values$n_indicators+1
     })
   }
   

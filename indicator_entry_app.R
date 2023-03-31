@@ -11,7 +11,7 @@ source("utils.R")
 n_indicators <- length(list.files("indicators"))
 indicator_themes <- read_lines("themes_list")
 
-indicator_types <- c("Numerisk", "Kategorisk", "Skala", "Procent")
+indicator_types <- c("Numerisk", "Kategorisk", "Skala")
 
 ui = dashboardPage(
     title = "ESG Indikatorer",
@@ -52,7 +52,7 @@ server = function(input, output) {
             selectInput("new_indicator_type", "Type", choices = indicator_types),
             textInput("new_indicator_unit", "Enhed"),
             uiOutput("new_indicator_ui_choices"),
-            selectInput("new_indicator_active", "Aktiv", choices = c("ja", "nej")),
+            selectInput("new_indicator_status", "Status", choices = c("Aktiv", "Inaktiv")),
             actionButton("create_indicator","Send")
         )
     })
@@ -60,12 +60,12 @@ server = function(input, output) {
     # choices ui
     new_indicator_ui_choices <- reactive({
       if (req(input$new_indicator_type) == "Kategorisk") {
-        fluidRow(useShinyjs(),
+
         textAreaInput("new_indicator_choices", "Valgmuligheder", placeholder = "Separér værdier med komma")
-        )
+        
       }
       else if (req(input$new_indicator_type) == "Skala") {
-        fluidRow(useShinyjs(),
+        fluidRow(
           numericInput("new_indicator_scale_min", "Min", value = 1),
           numericInput("new_indicator_scale_max", "Max", value = 5)
         )
@@ -77,11 +77,7 @@ server = function(input, output) {
     observeEvent(input$create_indicator, {
       
       shinyjs::reset()
-      shinyjs::reset("new_indicator_scale_max")
-      shinyjs::reset("new_indicator_choices")
-      shinyjs::reset("new_indicator_ui")
-      shinyjs::reset("new_indicator_ui_choices")
-   
+
       create_new_indicator(
         n_indicators = values$n_indicators,
         new_indicator_text = input$new_indicator_text,
@@ -91,7 +87,7 @@ server = function(input, output) {
         new_indicator_choices = input$new_indicator_choices,
         new_indicator_scale_min = input$new_indicator_scale_min,
         new_indicator_scale_max = input$new_indicator_scale_max,
-        new_indicator_active = input$new_indicator_active
+        new_indicator_status = input$new_indicator_status
       )
       
       values$n_indicators = values$n_indicators + 1

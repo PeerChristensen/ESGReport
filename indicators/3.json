@@ -1,1 +1,1 @@
-[{"indicatorID":3,"indicatorText":"3: ","indicatorType":"Procent","indicatorUnit":"","indicatorTheme":"KLIMA","indicatorChoices":{},"indicatorActive":"ja"}]
+[{"indicatorID":3,"indicatorText":"3: NaturTjek","indicatorType":"Kategorisk","indicatorUnit":"Ja/Nej","indicatorTheme":"BIODIVERSITET","indicatorChoices":["Ja,Nej"],"indicatorStatus":"Aktiv"}]

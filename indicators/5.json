@@ -1,1 +1,1 @@
-[{"indicatorID":5,"indicatorText":"5: ","indicatorType":"Kategorisk","indicatorUnit":"w","indicatorTheme":"KLIMA","indicatorChoices":["ja,nej"],"indicatorActive":"ja"}]
+[{"indicatorID":5,"indicatorText":"5: Næringsstofindhold","indicatorType":"Numerisk","indicatorUnit":"Pct. Over og under optimum","indicatorTheme":"MARKJORDENS FRUGTBARHED","indicatorStatus":"Aktiv"}]

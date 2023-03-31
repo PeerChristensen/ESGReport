@@ -1,1 +1,1 @@
-[{"indicatorID":1,"indicatorText":"1: ","indicatorType":"Kategorisk","indicatorUnit":"","indicatorTheme":"KLIMA","indicatorChoices":[""],"indicatorActive":"ja"}]
+[{"indicatorID":1,"indicatorText":"1: Emissioner pr. produkt","indicatorType":"Numerisk","indicatorUnit":"CO2e","indicatorTheme":"KLIMA","indicatorChoices":{},"indicatorStatus":"Aktiv"}]
