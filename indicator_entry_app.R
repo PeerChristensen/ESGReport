@@ -9,7 +9,7 @@ library(glue)
 source("utils.R")
 
 n_indicators <- length(list.files("indicators"))
-indicator_themes <- read_lines("themes_list")
+indicator_themes <- read_lines("data/themes_list")
 
 indicator_types <- c("Numerisk", "Kategorisk", "Skala")
 

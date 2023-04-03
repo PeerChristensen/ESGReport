@@ -32,9 +32,13 @@ for (row in 1:nrow(questions_df)) {
   write_json(data, glue::glue("questions/{question_id}.json"))
 }
 
-question_files <- list.files("questions", full.names = T)
-questions <- map(question_files,fromJSON) %>%
-  map(pull,questionText) %>% 
-  unlist()
+indicator_files <- list.files("indicators", full.names = T)
+indicators <- map(indicator_files,jsonlite::fromJSON)
+indicators <-map(indicators, ~.x %>% 
+                 mutate(indicatorID = as.character(indicatorID)))
 
 
+for (i in 1:length(indicators)) {
+  
+  indicators[[i]] %>%write_json(glue::glue("indicators2/{i}.json"))
+  }

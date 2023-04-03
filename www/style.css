@@ -1,17 +1,33 @@
 
 .card {
        border: 2px solid green;
+       border-radius: 5px;
+       }
+
+.card:hover {
+       border: 3px solid green;
+       border-radius: 5px;
        }
 
 .card-header {
         background: green;
        }
        
-.w-100 {
-       color: orange !important;
+.card-header:hover {
+        background: green;
        }
        
+.w-100 {
+       color: white;
+       }
+       
+.w-100:hover {
+       color: white;
+       }
+
+/*       
 .card-title w-100 {
          color: orange !important;
        }
+       */
        

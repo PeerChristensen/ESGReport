@@ -1,14 +1,18 @@
 
 source("utils.R")
 
-question_info <- load_question_info()
-questions <- question_info$questions
-question_types <- question_info$question_types
-question_themes <- question_info$question_themes
+indicator_info <- load_indicator_info()
+indicators <- indicator_info$indicator_texts
+indicator_types <- indicator_info$indicator_types
+indicator_themes <- indicator_info$indicator_themes
 
+tibble(indicators,indicator_types,indicator_themes) %>% view()
 
-create_grouped_questions <- function(grp,value) {
-  df <- tibble(grp,value)
-  out <- split(df$value,a$grp)
+s = c("1","10")
+for (i in s) {
+  if (nchar(i) == 1) {
+    i = paste0("0",i)
+    }
+  print(i)
   }
-create_grouped_questions(question_themes,question_types)
+

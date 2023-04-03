@@ -1,18 +1,59 @@
 
+# fix single elements not being shown in list groups
 
-style accordionItem, still need to fix title color, also on hover
+Solution:
+indicators$BIODIVERSITET <- list(indicators$BIODIVERSITET)
 
-    tags$style(
-      HTML(
-        ".card {
-       border: 2px solid green;
-       }
-       .card-header {
-        background: green;
-       font-color: white;
-       }
-       .w-100 {
-       color: white;
-       }"
-      )
-    ),
+Write a general function to identify one-element groups, e.g.:
+
+> indicators %>% map(length) %>% unlist() ->k
+> names(k[k==1])
+
+
+
+create_menu_items <- function(x) {
+  
+  renderMenu({
+    menu_list <- lapply(
+      unique(items$dataset),
+      function(x) {
+        sub_menu_list = lapply(
+          items[items$dataset == x,]$experiment,
+          function(y) {
+            menuSubItem(y, tabName = str_replace_all(paste0("ExpID_", x, "_", y)," ","")
+            )
+          }
+        )
+        menuItem(text = x, do.call(tagList, sub_menu_list))
+      }
+    )
+    sidebarMenu(menuItem("Hjem", tabName = "home"),
+                menu_list
+                )
+  })
+}
+
+
+
+
+for (i in selected_indicator_info) {
+  
+  ui_list <- list()
+  
+  indicatorID <- i %>% pull(indicatorID)
+  indicatorText <- i %>% pull(indicatorText)
+  indicatorType <- i %>% pull(indicatorType)
+  indicatorUnit <- i %>% pull(indicatorUnit)
+  indicatorTheme <- i %>% pull(indicatorTheme)
+  
+  if (indicatorType == "Kategorisk") {
+    indicatorChoices <- i %>% pull(indicatorChoices) %>% str_split(",", simplify = T)
+    ui <- selectInput(i,)
+  }
+  if (indicatorType == "Skala") {
+    indicatorScaleMin <- i %>% pull(indicatorScaleMin)
+    indicatorScaleMax <- i %>% pull(indicatorScaleMax)
+  }
+}
+
+

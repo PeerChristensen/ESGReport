@@ -6,7 +6,7 @@ library(tidyverse)
 library(glue)
 
 # functions
-get_input_for_indicator_ui <- function(indicatorID) {
+get_ui_for_indicator <- function(indicatorID) {
   
   json <- jsonlite::fromJSON(glue::glue("indicators/{indicatorID}.json"))
   indicatorID <- json %>% pull(indicatorID)
@@ -37,14 +37,21 @@ get_input_for_indicator_ui <- function(indicatorID) {
 
 create_indicator_ui <- function() {
   
-  indicator_info <- get_input_for_indicator_ui(1)
+  indicator_info <- get_ui_for_indicator("01")
   if (indicator_info$indicatorType == "Numerisk") {
       
       column(12,
              hr(),
-             p(glue("{indicator_info$indicatorText}")),
-      numericInput(glue("{indicator_info$indicatorID}"),NULL, value=0)
+              p(glue("{indicator_info$indicatorText}"),style = "font-size: 20px;"),
+              p(glue("Enhed: {indicator_info$indicatorUnit}", id = "unit"),
+              fluidRow(
+                column(3, numericInput(glue("{indicator_info$indicatorID}"),"Mål 2023", value=0)),
+                column(3, numericInput(glue("{indicator_info$indicatorID}"), "2022", value = 0)),
+                column(3, numericInput(glue("{indicator_info$indicatorID}"), "2021", value = 0))
+              )
       )
+      )
+    
   }
 }
 
@@ -64,21 +71,21 @@ ui = dashboardPage(
 
 server <- function(input, output) {
   
-  output$q <- renderUI({
+  output$a <- renderUI({
+    create_indicator_ui()
+  })
+  
+  output$b <- renderUI({
     create_indicator_ui()
   })
   
   output$test <- renderUI({
     accordion(id="x",
-      accordionItem(title="ty",
-        numericInput("t","T", value=0),
-        hr(),
-        selectInput("s","S", choices=indicatorChoices),
-        uiOutput("q"),
-        br(),
-        hr()
+      accordionItem(title="KLIMA",
+        uiOutput("a"),
+        uiOutput("b"),
       ),
-      accordionItem(title="tq",
+      accordionItem(title="BIODIVERSITET",
                     numericInput("t","T", value=0),
                     hr(),
                     selectInput("s","S", choices=indicatorChoices),

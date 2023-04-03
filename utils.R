@@ -3,10 +3,18 @@ load_indicator_info <- function() {
   
   indicator_files <- list.files("indicators", full.names = T)
   indicator_info <- map(indicator_files,jsonlite::fromJSON) 
+  indicator_ids <- map(indicator_info,pull,indicatorID) %>% unlist()
   indicator_texts <- map(indicator_info,pull,indicatorText) %>% unlist()
   indicator_types <- map(indicator_info,pull,indicatorType) %>% unlist()
+  indicator_units <- map(indicator_info,pull,indicatorUnit) %>% unlist()
   indicator_themes <- map(indicator_info, pull,indicatorTheme) %>% unlist()
-  list(indicator_texts=indicator_texts,indicator_types=indicator_types,indicator_themes=indicator_themes)
+  indicator_status <- map(indicator_info, pull,indicatorStatus) %>% unlist()
+  list(indicator_ids=indicator_ids,
+       indicator_texts=indicator_texts,
+       indicator_types=indicator_types,
+       indicator_units=indicator_units,
+       indicator_themes=indicator_themes,
+       indicator_status=indicator_status)
 }
 
 create_new_indicator <- function(
@@ -35,35 +43,3 @@ create_new_indicator <- function(
            indicatorChoices = ifelse(indicatorType == "Kategorisk", indicatorChoices,NA)) %>%
     write_json(glue("indicators/{indicator_id}.json"))
   }
-
-# update this function to return a UI for indicators to fill in
-generate_indicators <- function(selected_indicators) {
-  
-  renderUI(
-    box(title = "Spørgsmål til udfyldning",
-        p("placeholder")
-        )
-    )
-}
-
-create_menu_items <- function(x) {
-  
-  renderMenu({
-    menu_list <- lapply(
-      unique(items$dataset),
-      function(x) {
-        sub_menu_list = lapply(
-          items[items$dataset == x,]$experiment,
-          function(y) {
-            menuSubItem(y, tabName = str_replace_all(paste0("ExpID_", x, "_", y)," ","")
-            )
-          }
-        )
-        menuItem(text = x, do.call(tagList, sub_menu_list))
-      }
-    )
-    sidebarMenu(menuItem("Hjem", tabName = "home"),
-                menu_list
-                )
-  })
-}
