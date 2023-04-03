@@ -62,6 +62,7 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
   #controlbar = dashboardControlbar(id = "controlbar",collapsed = FALSE),
   dashboardBody(
     useShinyjs(),
+    tags$head(includeCSS("www/style.css")),
     tabItems(
       tabItem(tabName = "home",
               box(title = "Sådan bruger du ESGreen Tool Report",
@@ -90,11 +91,13 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                       `count-selected-text` = "{0} spørgsmål valgt"), 
                     multiple = TRUE),
                   actionButton("gen_indicators", "Udfyld rapport")
-                  ),
-                uiOutput("indicators")
+                  ),uiOutput("indicators"),
+               #accordion(id="accordion",
+              #   uiOutput("indicators")
+              #   )
               ),
       tabItem(tabName = "data",
-              box(title = "Dine data",width=11,
+              box(title = "Dine data", width=11,
                   dataTableOutput('userdata')
                   )
               )

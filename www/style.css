@@ -1,4 +1,9 @@
 
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+  background-color: green;
+  color: #fff;
+}
+
 .card {
        border: 2px solid green;
        border-radius: 5px;
@@ -9,16 +14,19 @@
        border-radius: 5px;
        }
 
+/*
 .card-header {
         background: green;
        }
-       
+*/
+
 .card-header:hover {
         background: green;
+        color: white;
        }
        
 .w-100 {
-       color: white;
+       color: green;
        }
        
 .w-100:hover {
