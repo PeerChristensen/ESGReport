@@ -1,0 +1,14 @@
+name: ESGToolReportTest
+title: ESGToolReportTest
+username:
+account: peersgs
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8759795
+bundleId: 7047215
+url: https://peersgs.shinyapps.io/ESGToolReportTest/
+when: 1680604791.18916
+lastSyncTime: 1680604791.18917
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ESGShiny_architecture.drawio.png|notes|playground.R|README.md|TODO|www/user-regular.svg|www/user-solid.svg|archive

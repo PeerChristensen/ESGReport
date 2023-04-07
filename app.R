@@ -5,9 +5,11 @@ library(shinyjs)
 library(jsonlite)
 library(shinyWidgets)
 library(glue)
+library(lubridate)
 
 source("utils.R")
 source("generate_indicator_ui.R")
+source("generate_report.R")
 
 # -------------------------------------------
 # indicator selection and data for inputs
@@ -33,7 +35,12 @@ user_data <- read_csv("data/user_data.csv")
 # -------------------------------------------
 # UI
 ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
-  dashboardHeader(title = "ESGreen Tool Report"),   
+  dashboardHeader(
+    title = dashboardBrand(
+      title = "ESGreen Tool Report", color = "primary"
+        ),
+    controlbarIcon = icon("th")
+                  ),   
   dashboardSidebar(
     sidebarUserPanel(
       image = NULL,
@@ -59,7 +66,19 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
     )
   ),
   footer = dashboardFooter(left = "Kontakt, copyright info etc.."),
-  #controlbar = dashboardControlbar(id = "controlbar",collapsed = FALSE),
+  controlbar = dashboardControlbar(
+    id = "controlbar",collapsed = F, pinned =T,
+    column(12,
+           div(style="text-align: center;margin-top: 25px;",
+               actionButton("save", "Gem kladde", width="125px")
+           )
+    ),
+    column(12,
+           div(style="text-align: center;margin-top: 25px;",
+               actionButton("reset", "Start forfra",width="125px")
+               )
+           )
+    ),
   dashboardBody(
     useShinyjs(),
     tags$head(includeCSS("www/style.css")),
@@ -69,15 +88,11 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                   p("text"),
                   p("text"),
                   collapsible = FALSE
-                  ),
-              box(title = "Vælg bruger",
-                  selectInput("select_user", label = NULL,
-                              choices = users)
-                  ),
-              uiOutput("new_indicator"),
+                  )
               ),
       tabItem(tabName = "choose",
               box(title = "Vælg indikatorer",
+                  id = "select_indicators_box",
                   pickerInput(
                     inputId = "select_indicators",
                     label = NULL, 
@@ -91,10 +106,13 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                       `count-selected-text` = "{0} spørgsmål valgt"), 
                     multiple = TRUE),
                   actionButton("gen_indicators", "Udfyld rapport")
-                  ),uiOutput("indicators"),
-               #accordion(id="accordion",
-              #   uiOutput("indicators")
-              #   )
+                  ),
+              uiOutput("report_ui"),
+              uiOutput("indicators"),
+              tableOutput('show_inputs')
+              ),
+      tabItem(tabName = "standard",
+              uiOutput("indicators_std")
               ),
       tabItem(tabName = "data",
               box(title = "Dine data", width=11,
@@ -110,58 +128,50 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
 
 server <- function(input, output, session) {
     
+    observeEvent(input$reset, {
+      session$reload()
+      })
+    
     values <- reactiveValues(n_indicators = n_indicators)
     
+    # Greet user
     output$welcome <- renderText({ paste0("Hej ", input$select_user)})
     
+    # Show user data
     output$userdata <- renderDataTable({
       user_data %>% filter(AgroID == input$select_user)
     })
     
+    # Generate indicators
     observeEvent(input$gen_indicators, {
       output$indicators <- renderUI({
         generate_indicators(selected_indicators = input$select_indicators)
       })
+      shinyjs::hide(id = "select_indicators_box")
     })
     
-    new_indicator_ui <- reactive({
-      
-      if (req(input$select_user) == "admin") {
-        box(title = "Tilføj indikator",
-            textAreaInput("new_indicator_text", "Tekst"),
-            selectInput("new_indicator_theme", "Tema", choices = themes_list),
-            selectInput("new_indicator_type", "Type", choices = indicator_types),
-            uiOutput("new_indicator_ui_choices"),
-            actionButton("create_indicator","Send")
-            )
-        }
+    output$indicators_std <- renderUI({
+      # currently selects all indicators
+      generate_indicators(selected_indicators = indicator_texts)
     })
     
-    output$new_indicator <- renderUI({ new_indicator_ui() })
+    output$report_ui <- renderUI({ get_report_UI()
+    })
     
-    new_indicator_ui_choices <- reactive({
-      if (req(input$new_indicator_type) == "Kategorisk") {
-            textAreaInput("new_indicator_choices", "Valgmuligheder", placeholder = "Separér værdier med komma")
+    AllInputs <- reactive({
+      myvalues <- NULL
+      for(i in 1:length(names(input))){
+        myvalues <- as.data.frame(rbind(myvalues,(cbind(names(input)[i],input[[names(input)[i]]]))))
       }
-      else if (req(input$new_indicator_type) == "Skala") {
-        numericRangeInput("range", "Vælg interval", min=1,max=10, value=c(1,5))
-      }
+      names(myvalues) <- c("input_name","input_value")
+      myvalues <- myvalues %>% 
+        filter(!is.na(as.numeric(substring(input_name, 1, 1))) | substring(input_name, 1,3) == "ini")
     })
     
-    output$new_indicator_ui_choices <- renderUI({ new_indicator_ui_choices()})
-    
-    observeEvent(input$create_indicator, {
-      
-      create_new_indicator(
-        n_indicators = values$n_indicators,
-        new_indicator_text = input$new_indicator_text,
-        new_indicator_type = input$new_indicator_type,
-        new_indicator_theme = input$new_indicator_theme,
-        new_indicator_choices = input$new_indicator_choices
-      )
-      
-      values$n_indicators = values$n_indicators+1
+    output$show_inputs <- renderTable({
+      AllInputs()
     })
-  }
+    
+}
   
 shinyApp(ui, server)

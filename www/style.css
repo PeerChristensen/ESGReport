@@ -1,7 +1,16 @@
 
+
 .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
   background-color: green;
   color: #fff;
+}
+
+.bg-primary {
+  background-color: green !important;
+}
+
+a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-primary:hover {
+  background-color: green !important;
 }
 
 .card {
@@ -32,6 +41,10 @@
 .w-100:hover {
        color: white;
        }
+/* pin */    
+.fa-thumbtack {
+  color: green !important;
+}
 
 /*       
 .card-title w-100 {

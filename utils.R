@@ -2,7 +2,8 @@
 load_indicator_info <- function() {
   
   indicator_files <- list.files("indicators", full.names = T)
-  indicator_info <- map(indicator_files,jsonlite::fromJSON) 
+  indicator_info <- map(indicator_files,jsonlite::fromJSON) %>% 
+    keep(~.$indicatorStatus == "Aktiv")
   indicator_ids <- map(indicator_info,pull,indicatorID) %>% unlist()
   indicator_texts <- map(indicator_info,pull,indicatorText) %>% unlist()
   indicator_types <- map(indicator_info,pull,indicatorType) %>% unlist()
