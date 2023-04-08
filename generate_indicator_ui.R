@@ -140,9 +140,12 @@ create_ui_inputs <- function(indicator) {
                  p(indicator['indicatorText'],style = "font-size: 20px;"),
                  p(indicator['indicatorUnit'], id = "unit"),
                  fluidRow(
-                   column(3, selectInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), choices = indicator["indicatorChoices"], selected=F,selectize = F)),
-                   column(3, selectInput(glue("{indicator['indicatorID']}_{year-1}"), glue("{year-1}"), choices = indicator["indicatorChoices"])),
-                   column(3, selectInput(glue("{indicator['indicatorID']}_{year-2}"), glue("{year-2}"), choices = indicator["indicatorChoices"])),
+                   column(3, selectInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), 
+                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected=F,selectize=T)),
+                   column(3, selectInput(glue("{indicator['indicatorID']}_{year-1}"), glue("{year-1}"), 
+                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected=F,selectize=T)),
+                   column(3, selectInput(glue("{indicator['indicatorID']}_{year-2}"), glue("{year-2}"), 
+                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected=F,selectize=T)),
                    style='padding-bottom:75px;'
                  )
     )

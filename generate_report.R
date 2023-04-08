@@ -1,5 +1,5 @@
 
-get_report_UI <- function() {
+get_report_ui <- function() {
   
   box(title = "Hent rapport",
              p("Titel"),
@@ -12,9 +12,9 @@ get_report_UI <- function() {
       )
 }
 
-get_report_server <- function(id, values) {
+get_report_server <- function() {
 
-    output$report <- downloadHandler(
+    output$generate_report <- downloadHandler(
       
       filename = function(){
         paste0(input$report_title,".pdf")
@@ -23,19 +23,19 @@ get_report_server <- function(id, values) {
         # Copy the report file to a temporary directory before processing it, in
         # case we don't have write permissions to the current working dir (which
         # can happen when deployed).
-        tempReport <- file.path(tempdir(), "report.Rmd")
-        file.copy("report.Rmd", tempReport, overwrite = TRUE)
+        tempReport <- file.path(tempdir(), "ESGReport.Rmd")
+        file.copy("ESGReport.Rmd", tempReport, overwrite = TRUE)
         
-        params <- NULL
+        params_df <- NULL
         for(i in 1:length(names(input))){
-          params <- as.data.frame(rbind(params,(cbind(names(input)[i],input[[names(input)[i]]]))))
+          params_df <- as.data.frame(rbind(params_df,(cbind(names(input)[i],input[[names(input)[i]]]))))
         }
-        names(params) <- c("input_name","input_value")
-        
+        names(params_df) <- c("input_name","input_value")
+        title = input$report_title
         render_markdown <- function(){
           rmarkdown::render(tempReport,
                             output_file = file,
-                            params = params,
+                            params = list(params_df,title)
                             #envir = new.env(parent = globalenv())
           )}
         render_markdown()

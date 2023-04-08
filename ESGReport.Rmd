@@ -1,0 +1,63 @@
+---
+title: "`r params$params$report_title`"
+author:
+  - name: "Niels Nielsen"
+    affiliation: "CVR: xxx"
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_paged:
+    toc: true
+    toc_depth: 1
+    css: "report_style.css"
+    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    self_contained: false
+params: 
+  params: params
+  indicators_df: indicators_df
+knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(root.dir = '/',echo = F,cache=F, warning=F,error=F,message=F)
+```
+
+```{r}
+library(kableExtra)
+# dataframe for handling output
+ # indicator_files <- list.files(params$indicators, full.names = T)
+ # indicators <- map(indicator_files,jsonlite::fromJSON)
+ # indicators <- map_df(indicators, 
+ #                      select,
+ #                      indicatorID, indicatorText, indicatorTheme)# %>%
+ #   #mutate(indicatorID = as.character(indicatorID))
+
+indicators_df <- params$indicators_df %>%
+  select(indicatorID = indicator_ids, 
+         indicatorText = indicator_texts,
+         indicatorTheme = indicator_themes,
+         indicatorUnit = indicator_units) %>%
+  mutate(indicatorID = as.character(indicatorID))
+
+df <- params$params %>% 
+   stack() %>% 
+   rename(input_name = ind, input_value=values) %>%
+   filter(input_value != "", 
+         !is.na(input_value),
+         input_value != "TRUE",
+         input_value != "FALSE",
+         !grepl('select|tabs|sidebar|accordion', input_name)
+         ) %>%
+   separate(input_name,sep = "_", into="indicatorID", remove = FALSE) %>%
+   left_join(indicators_df, by = "indicatorID", keep=T) %>%
+   as_tibble()
+kable(df)
+```
+
+
+
+# Kernefortælling
+
+`r params$params$report_intro`
+
+
+---

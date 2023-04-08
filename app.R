@@ -6,6 +6,7 @@ library(jsonlite)
 library(shinyWidgets)
 library(glue)
 library(lubridate)
+library(rlist)
 
 source("utils.R")
 source("generate_indicator_ui.R")
@@ -14,6 +15,7 @@ source("generate_report.R")
 # -------------------------------------------
 # indicator selection and data for inputs
 indicator_info <- load_indicator_info()
+indicator_info_df <- indicator_info %>% as_tibble()
 indicator_texts <- indicator_info$indicator_text
 indicator_types <- indicator_info$indicator_types %>% unique()
 indicator_themes <- indicator_info$indicator_themes
@@ -107,7 +109,16 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                     multiple = TRUE),
                   actionButton("gen_indicators", "Udfyld rapport")
                   ),
-              uiOutput("report_ui"),
+              #uiOutput("report_ui"),
+              box(title = "Hent rapport",
+                  p("Titel"),
+                  textInput("report_title",label=NULL, value = "ESG Rapport"),
+                  p("Kernefortælling (valgfri)"),
+                  textAreaInput("report_intro", label=NULL),
+                  p("Fakta om bedriften (valgfri)"),
+                  textAreaInput("report_facts", label=NULL),
+                  downloadButton("generate_report", "Download PDF")
+              ),
               uiOutput("indicators"),
               tableOutput('show_inputs')
               ),
@@ -135,7 +146,7 @@ server <- function(input, output, session) {
     values <- reactiveValues(n_indicators = n_indicators)
     
     # Greet user
-    output$welcome <- renderText({ paste0("Hej ", input$select_user)})
+    output$welcome <- renderText({ paste0("Hej Niels", input$select_user)})
     
     # Show user data
     output$userdata <- renderDataTable({
@@ -155,8 +166,46 @@ server <- function(input, output, session) {
       generate_indicators(selected_indicators = indicator_texts)
     })
     
-    output$report_ui <- renderUI({ get_report_UI()
-    })
+    # generate report
+    #output$report_ui <- renderUI({ get_report_ui()
+    #})
+    #observeEvent(input$generate_report, {
+    #  get_report_server()
+    #})
+    
+      # output$generate_report <- downloadHandler(
+      #   filename =  "new_report.pdf",
+      #   content = function(file) {
+      #     tempReport <- file.path(tempdir(), "ESGReport.Rmd")
+      #     tempCSS <- file.path(tempdir(), "report_style.css")
+      #     file.copy("ESGReport.Rmd", tempReport, overwrite = TRUE)
+      #     file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
+      #     params <- list(title = input$report_title,
+      #                    intro = input$report_intro)
+      #     html_fn <- rmarkdown::render(tempReport,  params = params,
+      #                                  envir = new.env(parent = globalenv()))
+      #     
+      #     pagedown::chrome_print(html_fn, file)
+      #   }
+      # )
+      # 
+      #Generate report
+      output$generate_report <- downloadHandler(
+        filename =  "ESGreenToolReport.pdf",
+        content = function(file) {
+          tempReport <- file.path(tempdir(), "ESGReport.Rmd")
+          tempCSS <- file.path(tempdir(), "report_style.css")
+          file.copy("ESGReport.Rmd", tempReport, overwrite = TRUE)
+          file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
+          params <-   reactiveValuesToList(input)
+          #params <-   input
+          html_fn <- rmarkdown::render(tempReport,  params = list("params"=params,
+                                                                  "indicators_df"=indicator_info_df),
+                                       envir = new.env(parent = globalenv()))
+          
+          pagedown::chrome_print(html_fn, file)
+        }
+      )
     
     AllInputs <- reactive({
       myvalues <- NULL
