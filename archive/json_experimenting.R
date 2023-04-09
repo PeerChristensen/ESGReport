@@ -59,7 +59,3 @@ df <- mylist %>%
   left_join(indicators, by = "indicatorID") %>%
   as_tibble()
 
-df = data.frame( id = I(c("abcd_123ABC","abc_5234NHYK")), x = c(1.0,2.0) )
-
-## separate knowing you will have three components
-df %>% separate(id, sep = "_", into="w", remove = FALSE) 

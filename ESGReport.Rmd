@@ -50,7 +50,7 @@ df <- params$params %>%
    separate(input_name,sep = "_", into="indicatorID", remove = FALSE) %>%
    left_join(indicators_df, by = "indicatorID", keep=T) %>%
    as_tibble()
-kable(df)
+write_csv(df, "input_data.csv")
 ```
 
 

@@ -57,3 +57,7 @@ for (i in selected_indicator_info) {
 }
 
 
+# hide show controlbar based on tabitem that's open
+
+https://stackoverflow.com/questions/71073421/toggle-controlbar-based-on-tab-and-action-button
+

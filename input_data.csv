@@ -1,0 +1,13 @@
+"input_value","input_name","indicatorID.x","indicatorID.y","indicatorText","indicatorTheme","indicatorUnit"
+"Nej","7_2023","7","7","7: NaturTjek","BIODIVERSITET","Ja/Nej"
+"3","8_2021","8","8","8: Ammoniakfordampning i marken","VANDMILJØ OG LUFTKVALITET","Kg N/ha"
+"Ja","7_2022","7","7","7: NaturTjek","BIODIVERSITET","Ja/Nej"
+"2","8_2022","8","8","8: Ammoniakfordampning i marken","VANDMILJØ OG LUFTKVALITET","Kg N/ha"
+"1","2_2023","2","2","2: Emissioner fra bedriften samlet ekskl. JB11 og kulstof i jord","KLIMA","CO2e"
+"3","2_2021","2","2","2: Emissioner fra bedriften samlet ekskl. JB11 og kulstof i jord","KLIMA","CO2e"
+"- blala","initiatives_curr_KLIMA","initiatives",NA,NA,NA,NA
+"1","8_2023","8","8","8: Ammoniakfordampning i marken","VANDMILJØ OG LUFTKVALITET","Kg N/ha"
+"2","1_2022","1","1","1: Emissioner pr. produkt","KLIMA","CO2e"
+"3","1_2021","1","1","1: Emissioner pr. produkt","KLIMA","CO2e"
+"1","1_2023","1","1","1: Emissioner pr. produkt","KLIMA","CO2e"
+"2","2_2022","2","2","2: Emissioner fra bedriften samlet ekskl. JB11 og kulstof i jord","KLIMA","CO2e"

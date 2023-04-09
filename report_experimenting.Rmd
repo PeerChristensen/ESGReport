@@ -1,0 +1,176 @@
+---
+title: "ESG Rapport"
+author:
+  - name: "Niels Nielsen"
+    affiliation: "CVR: xxx"
+date: "`r Sys.Date()`"
+output: 
+  pagedown::html_paged:
+    toc: true
+    toc_depth: 2
+    css: "www/report_style.css"
+  # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    self_contained: false
+knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(root.dir = '/',echo = F,cache=F, warning=F,error=F,message=F)
+```
+
+
+```{r}
+library(tidyverse)
+library(htmltools)
+library(DT)
+library(knitr)
+library(kableExtra)
+library(gt)
+
+df <- read_csv("input_data.csv") %>%
+  mutate(
+    indicatorTheme = ifelse(
+      is.na(indicatorTheme),input_name,indicatorTheme
+      ),
+    indicatorTheme = str_replace(indicatorTheme, "[a-z+_]*", "")
+    ) %>%
+  select(-indicatorID.y) %>%
+  rename(indicatorID = indicatorID.x)
+
+# get themes
+themes_list <- df %>% pull(indicatorTheme) %>% unique()
+
+# get intro and facts inputs
+intro <- df %>% 
+  filter(input_name == "report_intro") %>% 
+  pull(input_value)
+
+intro <- "For LaTeX output, the first class name will be used as the LaTeX environment name. You should also provide an attribute named data-latex in the Div block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the verbatim environment in LaTeX, which does not have any arguments:"
+
+facts <- df %>% 
+  filter(input_name == "report_facts") %>% 
+  pull(input_value)
+
+facts <- "- For LaTeX output, the first class name will be used as the LaTeX environment name - We show two simple examples below. The first example uses the verbatim environment in LaTeX, which does not have any arguments - This attribute can be an empty string if the environment does not need arguments."
+
+# get intitiatives
+initiatives_df <- df %>%
+  filter(is.na(indicatorUnit))
+#initiatives_df$input_value = "- abc - def -ghi"
+
+df <- df %>%
+  select(input_name,Indikator = indicatorText, 
+         Enhed = indicatorUnit, 
+         Svar = input_value, indicatorTheme) %>%
+  drop_na()
+
+# pivot table to have inputs by year as columns
+df <- df %>% 
+  mutate(year = str_sub(input_name,-4,-1)) %>%
+  arrange(desc(year)) %>%
+  pivot_wider(names_from = year, 
+              values_from = Svar, 
+              id_cols = c(Indikator,Enhed, indicatorTheme),
+              names_sort=F)
+df[is.na(df)] = ""
+```
+
+
+```{r, results="asis"}
+
+if (length(intro) > 0) {
+  
+  cat("\n") 
+  cat("#", "Kernefortælling", "\n")
+  print(
+   tagList(intro)
+   )
+  cat("\n") 
+}
+
+if (length(facts) > 0) {
+  
+  cat("\n") 
+  cat("#", "Fakta om bedriften", "\n")
+  facts <- str_split(facts, "-") %>% 
+          map(function(x) x[nchar(x)>1]) %>%
+          unlist() %>% 
+          str_trim()
+        
+        print(
+          tagList(cat(paste('-', facts), sep = '\n') )
+        )
+  cat("\n")
+}
+
+if ((length(intro) + length(facts)) > 0) {
+    cat("\n\n\\pagebreak\n")
+}
+
+for(i in themes_list){
+  
+   theme_initiatives <- initiatives_df %>%
+     filter(indicatorTheme == i)
+  
+  cat("\n")
+  cat("#", str_to_title(i), "\n")
+  
+# TABLES
+  print(
+   tagList(
+    df %>% 
+      arrange(Indikator) %>%
+      filter(indicatorTheme == i) %>%
+      select(-indicatorTheme) %>%
+      gt() %>%
+      cols_width(Indikator ~ px(300),everything() ~ px(80)) %>%
+      tab_options(column_labels.font.weight="bold") %>%
+      opt_stylize(style = 1, color = "green", 
+                  add_row_striping = TRUE)
+    )
+   )
+  cat("\n")
+
+# INITIATIVES
+  if (nrow(theme_initiatives) > 0) {
+    
+    # current
+    current_initiatives <- theme_initiatives %>%
+      filter(str_detect(input_name, "curr"))
+    
+    if (nrow(current_initiatives) > 0) {
+        cat("##", "Nuværende tiltag", "\n")
+      
+        inis <- str_split(current_initiatives$input_value, "-") %>% 
+          map(function(x) x[nchar(x)>1]) %>%
+          unlist() %>%
+          str_trim()
+        
+        print(
+          tagList(cat(paste('-', inis), sep = '\n') )
+        )
+        cat("\n")
+      }
+      
+      # future
+    future_initiatives <- theme_initiatives %>%
+        filter(str_detect(input_name, "fut"))
+    
+    if (nrow(future_initiatives) > 0) {
+        cat("##", "Fremtidige tiltag", "\n")
+      
+        inis <- str_split(future_initiatives$input_value, "-") %>% 
+          map(function(x) x[nchar(x)>1]) %>%
+        unlist()
+        
+        print(
+          tagList(cat(paste('-', inis), sep = '\n') )
+        )
+        cat("\n")
+    }
+
+  }
+}
+```
+
+---

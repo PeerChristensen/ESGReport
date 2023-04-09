@@ -31,3 +31,30 @@ format_html_list <- function(char){
   return(html_list)
 }
 
+
+
+df <- read_csv("input_data.csv") %>%
+  mutate(indicatorTheme = ifelse(is.na(indicatorTheme),input_name,indicatorTheme),
+         indicatorTheme = str_replace(indicatorTheme, "[a-z+_]*", "")) %>%
+  select(-indicatorID.y) %>%
+  rename(indicatorID = indicatorID.x)
+
+themes_list <- df %>% pull(indicatorTheme) %>% unique()
+
+initiatives_df <- df %>%
+  filter(is.na(indicatorUnit))
+
+df <- df %>%
+  select(input_name,Indikator = indicatorText, 
+         Enhed = indicatorUnit, 
+         Svar = input_value, indicatorTheme) %>%
+  drop_na()
+
+df <- df %>% mutate(year = str_sub(input_name,-4,-1)) %>%
+  arrange(desc(year)) %>%
+  pivot_wider(names_from = year, 
+              values_from = Svar, 
+              id_cols = c(Indikator,Enhed, indicatorTheme),
+              names_sort=F)
+
+

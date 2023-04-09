@@ -72,14 +72,24 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
     id = "controlbar",collapsed = F, pinned =T,
     column(12,
            div(style="text-align: center;margin-top: 25px;",
-               actionButton("save", "Gem kladde", width="125px")
-           )
-    ),
+               actionButton("save", "Gem kladde", width="150px")
+               )
+           ),
     column(12,
            div(style="text-align: center;margin-top: 25px;",
-               actionButton("reset", "Start forfra",width="125px")
+               actionButton("reset", "Start forfra",width="150px")
                )
+           ),
+    column(12,
+           div(style="text-align: center;margin-top: 25px;",
+               actionButton("complete", "Hent rapport",width="150px")
+               )
+           ),
+    column(12,
+           div(style="text-align: center;margin-top: 25px;",
+               actionButton("add_indicators", "Tilføj indikatorer",width="150px")
            )
+    )
     ),
   dashboardBody(
     useShinyjs(),
@@ -109,16 +119,9 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                     multiple = TRUE),
                   actionButton("gen_indicators", "Udfyld rapport")
                   ),
-              #uiOutput("report_ui"),
-              box(title = "Hent rapport",
-                  p("Titel"),
-                  textInput("report_title",label=NULL, value = "ESG Rapport"),
-                  p("Kernefortælling (valgfri)"),
-                  textAreaInput("report_intro", label=NULL),
-                  p("Fakta om bedriften (valgfri)"),
-                  textAreaInput("report_facts", label=NULL),
-                  downloadButton("generate_report", "Download PDF")
-              ),
+              uiOutput("report_ui"),
+              downloadButton("downloadData", "Download")
+              ,
               uiOutput("indicators"),
               tableOutput('show_inputs')
               ),
@@ -138,7 +141,38 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
 # SERVER
 
 server <- function(input, output, session) {
+  
+  output$downloadData <- downloadHandler(
+
     
+    filename = function() {
+      paste("input_data", ".csv", sep = "")
+    },
+    content = function(file) {
+      data = reactiveValuesToList(input)
+      indicators_df <- indicator_info_df %>%
+        select(indicatorID = indicator_ids, 
+               indicatorText = indicator_texts,
+               indicatorTheme = indicator_themes,
+               indicatorUnit = indicator_units) %>%
+        mutate(indicatorID = as.character(indicatorID))
+      
+      df <- data %>% 
+        stack() %>% 
+        rename(input_name = ind, input_value=values) %>%
+        filter(input_value != "", 
+               !is.na(input_value),
+               input_value != "TRUE",
+               input_value != "FALSE",
+               !grepl('select|tabs|sidebar|accordion', input_name)
+        ) %>%
+        separate(input_name,sep = "_", into="indicatorID", remove = FALSE) %>%
+        left_join(indicators_df, by = "indicatorID", keep=T) %>%
+        as_tibble()
+      write.csv(df, file, row.names = FALSE)
+    }
+  )
+  
     observeEvent(input$reset, {
       session$reload()
       })
@@ -167,30 +201,12 @@ server <- function(input, output, session) {
     })
     
     # generate report
-    #output$report_ui <- renderUI({ get_report_ui()
-    #})
-    #observeEvent(input$generate_report, {
-    #  get_report_server()
-    #})
-    
-      # output$generate_report <- downloadHandler(
-      #   filename =  "new_report.pdf",
-      #   content = function(file) {
-      #     tempReport <- file.path(tempdir(), "ESGReport.Rmd")
-      #     tempCSS <- file.path(tempdir(), "report_style.css")
-      #     file.copy("ESGReport.Rmd", tempReport, overwrite = TRUE)
-      #     file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
-      #     params <- list(title = input$report_title,
-      #                    intro = input$report_intro)
-      #     html_fn <- rmarkdown::render(tempReport,  params = params,
-      #                                  envir = new.env(parent = globalenv()))
-      #     
-      #     pagedown::chrome_print(html_fn, file)
-      #   }
-      # )
-      # 
-      #Generate report
-      output$generate_report <- downloadHandler(
+    observeEvent(input$complete, {
+      output$report_ui <- renderUI({ get_report_ui()})
+      }
+      )
+ 
+    output$generate_report <- downloadHandler(
         filename =  "ESGreenToolReport.pdf",
         content = function(file) {
           tempReport <- file.path(tempdir(), "ESGReport.Rmd")
@@ -198,7 +214,6 @@ server <- function(input, output, session) {
           file.copy("ESGReport.Rmd", tempReport, overwrite = TRUE)
           file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
           params <-   reactiveValuesToList(input)
-          #params <-   input
           html_fn <- rmarkdown::render(tempReport,  params = list("params"=params,
                                                                   "indicators_df"=indicator_info_df),
                                        envir = new.env(parent = globalenv()))
@@ -207,19 +222,19 @@ server <- function(input, output, session) {
         }
       )
     
-    AllInputs <- reactive({
-      myvalues <- NULL
-      for(i in 1:length(names(input))){
-        myvalues <- as.data.frame(rbind(myvalues,(cbind(names(input)[i],input[[names(input)[i]]]))))
-      }
-      names(myvalues) <- c("input_name","input_value")
-      myvalues <- myvalues %>% 
-        filter(!is.na(as.numeric(substring(input_name, 1, 1))) | substring(input_name, 1,3) == "ini")
-    })
-    
-    output$show_inputs <- renderTable({
-      AllInputs()
-    })
+    # AllInputs <- reactive({
+    #   myvalues <- NULL
+    #   for(i in 1:length(names(input))){
+    #     myvalues <- as.data.frame(rbind(myvalues,(cbind(names(input)[i],input[[names(input)[i]]]))))
+    #   }
+    #   names(myvalues) <- c("input_name","input_value")
+    #   myvalues <- myvalues %>% 
+    #     filter(!is.na(as.numeric(substring(input_name, 1, 1))) | substring(input_name, 1,3) == "ini")
+    # })
+    # 
+    # output$show_inputs <- renderTable({
+    #   AllInputs()
+    # })
     
 }
   
