@@ -120,7 +120,6 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                   actionButton("gen_indicators", "Udfyld rapport")
                   ),
               uiOutput("report_ui"),
-              downloadButton("downloadData", "Download"),
               uiOutput("indicators"),
               tableOutput('show_inputs')
               ),
@@ -185,10 +184,8 @@ server <- function(input, output, session) {
     # generate report
     observeEvent(input$complete, {
       output$report_ui <- renderUI({ get_report_ui()})
-      #write_csv(stack(reactiveValuesToList(input)),"input_data2.csv")
-      #write_csv(indicator_info_df,"indicator_df.csv")
-    }
-      )
+      }
+    )
 
     output$generate_report <- downloadHandler(
         filename =  "ESGreenToolReport.pdf",
@@ -208,6 +205,28 @@ server <- function(input, output, session) {
           pagedown::chrome_print(html_fn, file)
         }
       )
+    
+    output$generate_report_html <- downloadHandler(
+      filename =  "ESGreenToolReport.html",
+      content = function(file) {
+        tempReport <- file.path(tempdir(), "ESGReport_html.Rmd")
+        tempCSS <- file.path(tempdir(), "report_style.css")
+        file.copy("ESGReport_html.Rmd", tempReport, overwrite = TRUE)
+        file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
+        params <-   reactiveValuesToList(input)
+
+        render_markdown <- function(){
+          rmarkdown::render(tempReport,
+                            output_file = file,
+                            params = list(
+                              "params" = params,
+                              "indicators_df" = indicator_info_df
+                            ),
+                            envir = new.env(parent = globalenv())
+          )}
+        render_markdown()
+      }
+    )
     
 }
   

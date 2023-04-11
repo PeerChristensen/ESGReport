@@ -10,7 +10,8 @@ get_report_ui <- function() {
              p("Fakta om bedriften (valgfri)"),
              textAreaInput("report_facts", label=NULL,
                            value = "- For LaTeX output, the first class name will be used as the LaTeX environment name - We show two simple examples below. The first example uses the verbatim environment in LaTeX, which does not have any arguments - This attribute can be an empty string if the environment does not need arguments."),
-             downloadButton("generate_report", "Download PDF")
+             downloadButton("generate_report", "Download PDF"),
+             downloadButton("generate_report_html", "Download HTML")
       )
 }
 
