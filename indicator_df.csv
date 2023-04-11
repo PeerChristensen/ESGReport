@@ -1,0 +1,53 @@
+indicator_ids,indicator_texts,indicator_types,indicator_units,indicator_themes,indicator_status
+1,1: Emissioner pr. produkt,Numerisk,CO2e,KLIMA,Aktiv
+2,2: Emissioner fra bedriften samlet ekskl. JB11 og kulstof i jord,Numerisk,CO2e,KLIMA,Aktiv
+3,3: Emissioner fra bedriften samlet inkl. JB11 og kulstof i jord,Numerisk,CO2e,KLIMA,Aktiv
+4,4: Emission fra lattergas i marken - planteavl,Numerisk,CO2e,KLIMA,Aktiv
+5,5: Emission fra enterisk metan - kvæg,Numerisk,CO2e,KLIMA,Aktiv
+6,6: Emissioner fra foderimport - grise og fjerkræ,Numerisk,CO2e,KLIMA,Aktiv
+7,7: NaturTjek,Kategorisk,Ja/Nej,BIODIVERSITET,Aktiv
+8,8: Ammoniakfordampning i marken,Numerisk,Kg N/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+9,9: Ammoniakfordampning fra stald og lager,Numerisk,NH3 pr. M2,VANDMILJØ OG LUFTKVALITET,Aktiv
+10,10: Fosforoverskud,Numerisk,Kg P/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+11,11: Planteværn (Belastningstal),Numerisk,B/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+12,12: Efterlevelse af gødsknings- og harmoniregler,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+13,13: Efterlevelse af N og P normer,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+14,14: Udarbejdelse af sprøjtejournal,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+15,15: Sædskifte,Skala,1-4 point,MARKJORDENS FRUGTBARHED,Aktiv
+16,16: Næringsstofindhold,Numerisk,Pct. over og under optimum,MARKJORDENS FRUGTBARHED,Aktiv
+17,17: Tiltag mod erosion,Skala,1-7 point,MARKJORDENS FRUGTBARHED,Aktiv
+18,18: Tiltag mod jordpakning,Skala,1-7 point,MARKJORDENS FRUGTBARHED,Aktiv
+19,"19: Dødelighed (kvæg, grise, fjerkræ)",Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+20,"20: Hjerteordning (kvæg, grise, fjerkræ)",Kategorisk,Ja/Nej,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+21,"21: Antibiotika anvendelse (fjerkræ, grise)",Numerisk,ADD,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+22,22: Nyinfektionsprocenten (kvæg),Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+23,23: Celletal (kvæg),Numerisk,Celler pr. ml. mælk,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+24,24: Trædepudescore (fjerkræ),Numerisk,Point,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+25,25: Kassationsprocent (fjerkræ),Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+26,26: Fjerpilning (fjerkræ) (øko),Numerisk,Point,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+27,27: Fremstillingspris pr. kg leveret EKM (kvæg),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+28,28: Kg EKM leveret pr. årsko (kvæg),Numerisk,Kg/årsko,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+29,29: Fremstillingspris smågrise (30 kg) (grise),Numerisk,Kr./gris,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+30,30: Foder anvendt pr. produceret 30 kgs gris (grise),Numerisk,FE/gris,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+31,31: Producerede grise pr. årsso+gylt (grise),Numerisk,Grise/årsso,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+32,32: Fremstillingspris for slagtesvin (grise),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+33,33: Foder pr. kg tilvækst (grise),Numerisk,FE/kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+34,34: Fremstillingspris for kyllinger (fjerkræ),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+35,35: Foder anvendt pr. kg produceret kød (fjerkræ),Numerisk,Kg/kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+36,36: Fremstillingspris korn (mark),Numerisk,Kr./hkg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+37,37: Udbytte korn (mark),Numerisk,Hkg/ha,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+38,38: Fremstillingspris grovfoder (mark),Numerisk,Kr./FEN,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+39,39: Udbytte grovfoder (mark),Numerisk,FEN/ha,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+40,40: Afkastningsgraden,Numerisk,Pct.,ØKONOMISK ROBUSTHED,Aktiv
+41,41: Soliditetsgraden,Numerisk,Pct.,ØKONOMISK ROBUSTHED,Aktiv
+42,"42: Vi har en strategi for virksomheden, der sætter retning for dens udvikling",Skala,1-5 point,LEDELSE,Aktiv
+43,43: Vi anvender aktivt vores strategi i ledelsen af virksomheden,Skala,1-5 point,LEDELSE,Aktiv
+44,44: Vi anvender driftsbudget for planlægning og opfølgning,Numerisk,1-5 point,LEDELSE,Aktiv
+45,45: Vi har planer for at sikre den fortsatte drift ved kritiske nedbrud og truende kriser,Numerisk,1-5 point,LEDELSE,Aktiv
+46,46: Vi søger inspiration og sparring fra personer udenfor virksomheden,Skala,1-5 point,LEDELSE,Aktiv
+47,47: Vi er åbne og imødekommende om vores virksomhed,Skala,1-5 point,LEDELSE,Aktiv
+48,48: Ordnede ansættelsesforhold for vores medarbejdere,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+49,49: Vi bruger de lovpligtige indsatser for arbejdssikkerhed,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+50,50: Vi forebygger arbejdsulykker og følger op,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+51,51: Vi informerer om og involverer medarbejderne i virksomhedens drift og udvikling,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+52,52: Vi har fokus på sundhed og trivsel i den daglige ledelse og drift af virksomheden,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv

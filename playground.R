@@ -33,6 +33,32 @@ format_html_list <- function(char){
 
 
 
+indicator_info <- load_indicator_info()
+indicator_info_df <- indicator_info %>% as_tibble() %>%
+  rename(indicatorID = indicator_ids) %>%
+  mutate(indicatorID = as.character(indicatorID)) %>%
+  rename(indicatorText = indicator_texts,
+         indicatorUnit = indicator_units,
+         indicatorTheme = indicator_themes
+         )
+
+inputs <-  read_csv("input_data2.csv") %>%
+  rename(input_name = ind, input_value=values) %>%
+  filter(input_value != "", 
+         !is.na(input_value),
+         input_value != "TRUE",
+         input_value != "FALSE",
+         !grepl('select|tabs|sidebar|accordion', input_name)
+  ) %>%
+  separate(input_name,sep = "_", into="indicatorID", remove = FALSE) %>%
+  left_join(indicator_info_df, by = "indicatorID", keep=T) %>%
+  as_tibble()
+
+write_csv(inputs, "input_data3.csv")
+
+
+
+
 df <- read_csv("input_data.csv") %>%
   mutate(indicatorTheme = ifelse(is.na(indicatorTheme),input_name,indicatorTheme),
          indicatorTheme = str_replace(indicatorTheme, "[a-z+_]*", "")) %>%

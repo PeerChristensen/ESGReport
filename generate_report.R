@@ -5,9 +5,11 @@ get_report_ui <- function() {
              p("Titel"),
              textInput("report_title",label=NULL, value = "ESG Rapport"),
              p("Kernefortælling (valgfri)"),
-             textAreaInput("report_intro", label=NULL),
+             textAreaInput("report_intro", label=NULL,
+                           value = "For LaTeX output, the first class name will be used as the LaTeX environment name. You should also provide an attribute named data-latex in the Div block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the verbatim environment in LaTeX, which does not have any arguments:"),
              p("Fakta om bedriften (valgfri)"),
-             textAreaInput("report_facts", label=NULL),
+             textAreaInput("report_facts", label=NULL,
+                           value = "- For LaTeX output, the first class name will be used as the LaTeX environment name - We show two simple examples below. The first example uses the verbatim environment in LaTeX, which does not have any arguments - This attribute can be an empty string if the environment does not need arguments."),
              downloadButton("generate_report", "Download PDF")
       )
 }

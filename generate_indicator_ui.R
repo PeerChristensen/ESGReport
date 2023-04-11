@@ -126,9 +126,9 @@ create_ui_inputs <- function(indicator) {
            p(indicator['indicatorText'],style = "font-size: 20px;"),
            p(indicator['indicatorUnit'], id = "unit"),
              fluidRow(
-               column(3, numericInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), value=NA)),
-               column(3, numericInput(glue("{indicator['indicatorID']}_{year-1}"),glue("{year-1}"), value = NA)),
-               column(3, numericInput(glue("{indicator['indicatorID']}_{year-2}"), glue("{year-2}"), value = NA))
+               column(3, numericInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), value=12345)), # change back to NA
+               column(3, numericInput(glue("{indicator['indicatorID']}_{year-1}"),glue("{year-1}"), value = 12345)),
+               column(3, numericInput(glue("{indicator['indicatorID']}_{year-2}"), glue("{year-2}"), value = 12345))
              )
           )
   }
@@ -141,11 +141,11 @@ create_ui_inputs <- function(indicator) {
                  p(indicator['indicatorUnit'], id = "unit"),
                  fluidRow(
                    column(3, selectInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), 
-                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected=F,selectize=T)),
+                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected="ja",selectize=T)),
                    column(3, selectInput(glue("{indicator['indicatorID']}_{year-1}"), glue("{year-1}"), 
-                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected=F,selectize=T)),
+                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected="Nej",selectize=T)),
                    column(3, selectInput(glue("{indicator['indicatorID']}_{year-2}"), glue("{year-2}"), 
-                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected=F,selectize=T)),
+                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected="Ja",selectize=T)),
                    style='padding-bottom:75px;'
                  )
     )
@@ -161,15 +161,15 @@ create_ui_inputs <- function(indicator) {
                    column(3, numericInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), 
                                           min = indicator['indicatorScaleMin'],
                                           max = indicator['indicatorScaleMax'],
-                                          value = NA)),
+                                          value = 3)), # back to NA
                    column(3, numericInput(glue("{indicator['indicatorID']}_2022"),glue("{year-1}"), 
                                           min = indicator['indicatorScaleMin'],
                                           max = indicator['indicatorScaleMax'],
-                                          value = NA)),
+                                          value = 3)),
                    column(3, numericInput(glue("{indicator['indicatorID']}_2021"),glue("{year-2}"), 
                                           min = indicator['indicatorScaleMin'],
                                           max = indicator['indicatorScaleMax'],
-                                          value = NA))
+                                          value = 3))
                    )
     )
   }
@@ -180,10 +180,12 @@ create_text_inputs <- function(theme) {
   inputs <- column(12,
     hr(),
     p("Iværksatte tiltag",style = "font-size: 20px;"),
-    textAreaInput(inputId = glue("initiatives_curr_{theme}"), label=NULL)
+    textAreaInput(inputId = glue("initiatives_curr_{theme}"), label=NULL,
+                  value = "- tiltag 1 - tiltag 2 -tiltag3")
     ,
     br(),
     p("Fremtidige tiltag",style = "font-size: 20px;"),
-    textAreaInput(inputId = glue("initiatives_fut_{theme}"), label=NULL)
+    textAreaInput(inputId = glue("initiatives_fut_{theme}"), label=NULL,
+                 value = "- tiltag 1 - tiltag 2 -tiltag3")
     )
 }

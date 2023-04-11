@@ -1,0 +1,170 @@
+input_value,input_name,indicatorID.x,indicatorID.y,indicatorText,indicator_types,indicatorUnit,indicatorTheme,indicator_status
+12345,39_2021,39,39,39: Udbytte grovfoder (mark),Numerisk,FEN/ha,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,46_2022,46,46,46: Vi søger inspiration og sparring fra personer udenfor virksomheden,Skala,1-5 point,LEDELSE,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_MARKJORDENS FRUGTBARHED,initiatives,NA,NA,NA,NA,NA,NA
+12345,31_2023,31,31,31: Producerede grise pr. årsso+gylt (grise),Numerisk,Grise/årsso,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,35_2022,35,35,35: Foder anvendt pr. kg produceret kød (fjerkræ),Numerisk,Kg/kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,47_2021,47,47,47: Vi er åbne og imødekommende om vores virksomhed,Skala,1-5 point,LEDELSE,Aktiv
+3,49_2022,49,49,49: Vi bruger de lovpligtige indsatser for arbejdssikkerhed,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+12345,11_2022,11,11,11: Planteværn (Belastningstal),Numerisk,B/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+3,49_2023,49,49,49: Vi bruger de lovpligtige indsatser for arbejdssikkerhed,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+12345,27_2023,27,27,27: Fremstillingspris pr. kg leveret EKM (kvæg),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,51_2021,51,51,51: Vi informerer om og involverer medarbejderne i virksomhedens drift og udvikling,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_BIODIVERSITET,initiatives,NA,NA,NA,NA,NA,NA
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_HUSDYRENES SUNDHED OG VELFÆRD,initiatives,NA,NA,NA,NA,NA,NA
+12345,11_2023,11,11,11: Planteværn (Belastningstal),Numerisk,B/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,27_2021,27,27,27: Fremstillingspris pr. kg leveret EKM (kvæg),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,9_2021,9,9,9: Ammoniakfordampning fra stald og lager,Numerisk,NH3 pr. M2,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,10_2021,10,10,10: Fosforoverskud,Numerisk,Kg P/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,35_2023,35,35,35: Foder anvendt pr. kg produceret kød (fjerkræ),Numerisk,Kg/kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,38_2021,38,38,38: Fremstillingspris grovfoder (mark),Numerisk,Kr./FEN,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,33_2022,33,33,33: Foder pr. kg tilvækst (grise),Numerisk,FE/kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,26_2021,26,26,26: Fjerpilning (fjerkræ) (øko),Numerisk,Point,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+3,51_2023,51,51,51: Vi informerer om og involverer medarbejderne i virksomhedens drift og udvikling,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+12345,21_2022,21,21,"21: Antibiotika anvendelse (fjerkræ, grise)",Numerisk,ADD,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,8_2021,8,8,8: Ammoniakfordampning i marken,Numerisk,Kg N/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,45_2023,45,45,45: Vi har planer for at sikre den fortsatte drift ved kritiske nedbrud og truende kriser,Numerisk,1-5 point,LEDELSE,Aktiv
+12345,23_2023,23,23,23: Celletal (kvæg),Numerisk,Celler pr. ml. mælk,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,4_2023,4,4,4: Emission fra lattergas i marken - planteavl,Numerisk,CO2e,KLIMA,Aktiv
+12345,4_2022,4,4,4: Emission fra lattergas i marken - planteavl,Numerisk,CO2e,KLIMA,Aktiv
+12345,24_2023,24,24,24: Trædepudescore (fjerkræ),Numerisk,Point,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,24_2022,24,24,24: Trædepudescore (fjerkræ),Numerisk,Point,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,16_2022,16,16,16: Næringsstofindhold,Numerisk,Pct. over og under optimum,MARKJORDENS FRUGTBARHED,Aktiv
+12345,38_2023,38,38,38: Fremstillingspris grovfoder (mark),Numerisk,Kr./FEN,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,42_2023,42,42,"42: Vi har en strategi for virksomheden, der sætter retning for dens udvikling",Skala,1-5 point,LEDELSE,Aktiv
+12345,44_2021,44,44,44: Vi anvender driftsbudget for planlægning og opfølgning,Numerisk,1-5 point,LEDELSE,Aktiv
+12345,45_2021,45,45,45: Vi har planer for at sikre den fortsatte drift ved kritiske nedbrud og truende kriser,Numerisk,1-5 point,LEDELSE,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_MARKJORDENS FRUGTBARHED,initiatives,NA,NA,NA,NA,NA,NA
+12345,28_2022,28,28,28: Kg EKM leveret pr. årsko (kvæg),Numerisk,Kg/årsko,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,30_2022,30,30,30: Foder anvendt pr. produceret 30 kgs gris (grise),Numerisk,FE/gris,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+Nej,12_2022,12,12,12: Efterlevelse af gødsknings- og harmoniregler,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+3,18_2022,18,18,18: Tiltag mod jordpakning,Skala,1-7 point,MARKJORDENS FRUGTBARHED,Aktiv
+12345,6_2023,6,6,6: Emissioner fra foderimport - grise og fjerkræ,Numerisk,CO2e,KLIMA,Aktiv
+3,17_2023,17,17,17: Tiltag mod erosion,Skala,1-7 point,MARKJORDENS FRUGTBARHED,Aktiv
+12345,26_2023,26,26,26: Fjerpilning (fjerkræ) (øko),Numerisk,Point,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+Ja,12_2021,12,12,12: Efterlevelse af gødsknings- og harmoniregler,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+3,18_2023,18,18,18: Tiltag mod jordpakning,Skala,1-7 point,MARKJORDENS FRUGTBARHED,Aktiv
+12345,29_2021,29,29,29: Fremstillingspris smågrise (30 kg) (grise),Numerisk,Kr./gris,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+Nej,7_2022,7,7,7: NaturTjek,Kategorisk,Ja/Nej,BIODIVERSITET,Aktiv
+12345,22_2023,22,22,22: Nyinfektionsprocenten (kvæg),Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,32_2021,32,32,32: Fremstillingspris for slagtesvin (grise),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,19_2023,19,19,"19: Dødelighed (kvæg, grise, fjerkræ)",Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,34_2023,34,34,34: Fremstillingspris for kyllinger (fjerkræ),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,9_2022,9,9,9: Ammoniakfordampning fra stald og lager,Numerisk,NH3 pr. M2,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,39_2023,39,39,39: Udbytte grovfoder (mark),Numerisk,FEN/ha,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+Nej,14_2022,14,14,14: Udarbejdelse af sprøjtejournal,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,40_2023,40,40,40: Afkastningsgraden,Numerisk,Pct.,ØKONOMISK ROBUSTHED,Aktiv
+Ja,14_2021,14,14,14: Udarbejdelse af sprøjtejournal,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,33_2023,33,33,33: Foder pr. kg tilvækst (grise),Numerisk,FE/kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,47_2023,47,47,47: Vi er åbne og imødekommende om vores virksomhed,Skala,1-5 point,LEDELSE,Aktiv
+Ja,13_2021,13,13,13: Efterlevelse af N og P normer,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,22_2022,22,22,22: Nyinfektionsprocenten (kvæg),Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,31_2022,31,31,31: Producerede grise pr. årsso+gylt (grise),Numerisk,Grise/årsso,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,48_2023,48,48,48: Ordnede ansættelsesforhold for vores medarbejdere,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+3,48_2022,48,48,48: Ordnede ansættelsesforhold for vores medarbejdere,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+3,50_2023,50,50,50: Vi forebygger arbejdsulykker og følger op,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+3,52_2022,52,52,52: Vi har fokus på sundhed og trivsel i den daglige ledelse og drift af virksomheden,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_BIODIVERSITET,initiatives,NA,NA,NA,NA,NA,NA
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_LEDELSE,initiatives,NA,NA,NA,NA,NA,NA
+12345,8_2022,8,8,8: Ammoniakfordampning i marken,Numerisk,Kg N/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,9_2023,9,9,9: Ammoniakfordampning fra stald og lager,Numerisk,NH3 pr. M2,VANDMILJØ OG LUFTKVALITET,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_ARBEJDSFORHOLD,initiatives,NA,NA,NA,NA,NA,NA
+12345,44_2023,44,44,44: Vi anvender driftsbudget for planlægning og opfølgning,Numerisk,1-5 point,LEDELSE,Aktiv
+12345,30_2021,30,30,30: Foder anvendt pr. produceret 30 kgs gris (grise),Numerisk,FE/gris,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,25_2023,25,25,25: Kassationsprocent (fjerkræ),Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,2_2023,2,2,2: Emissioner fra bedriften samlet ekskl. JB11 og kulstof i jord,Numerisk,CO2e,KLIMA,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_VANDMILJØ OG LUFTKVALITET,initiatives,NA,NA,NA,NA,NA,NA
+3,17_2021,17,17,17: Tiltag mod erosion,Skala,1-7 point,MARKJORDENS FRUGTBARHED,Aktiv
+12345,21_2023,21,21,"21: Antibiotika anvendelse (fjerkræ, grise)",Numerisk,ADD,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,5_2022,5,5,5: Emission fra enterisk metan - kvæg,Numerisk,CO2e,KLIMA,Aktiv
+12345,29_2023,29,29,29: Fremstillingspris smågrise (30 kg) (grise),Numerisk,Kr./gris,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,26_2022,26,26,26: Fjerpilning (fjerkræ) (øko),Numerisk,Point,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,34_2022,34,34,34: Fremstillingspris for kyllinger (fjerkræ),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,15_2021,15,15,15: Sædskifte,Skala,1-4 point,MARKJORDENS FRUGTBARHED,Aktiv
+12345,35_2021,35,35,35: Foder anvendt pr. kg produceret kød (fjerkræ),Numerisk,Kg/kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,39_2022,39,39,39: Udbytte grovfoder (mark),Numerisk,FEN/ha,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,3_2021,3,3,3: Emissioner fra bedriften samlet inkl. JB11 og kulstof i jord,Numerisk,CO2e,KLIMA,Aktiv
+12345,34_2021,34,34,34: Fremstillingspris for kyllinger (fjerkræ),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,48_2021,48,48,48: Ordnede ansættelsesforhold for vores medarbejdere,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+12345,25_2021,25,25,25: Kassationsprocent (fjerkræ),Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,40_2021,40,40,40: Afkastningsgraden,Numerisk,Pct.,ØKONOMISK ROBUSTHED,Aktiv
+3,50_2021,50,50,50: Vi forebygger arbejdsulykker og følger op,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+3,52_2021,52,52,52: Vi har fokus på sundhed og trivsel i den daglige ledelse og drift af virksomheden,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+3,43_2021,43,43,43: Vi anvender aktivt vores strategi i ledelsen af virksomheden,Skala,1-5 point,LEDELSE,Aktiv
+12345,16_2021,16,16,16: Næringsstofindhold,Numerisk,Pct. over og under optimum,MARKJORDENS FRUGTBARHED,Aktiv
+12345,30_2023,30,30,30: Foder anvendt pr. produceret 30 kgs gris (grise),Numerisk,FE/gris,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,27_2022,27,27,27: Fremstillingspris pr. kg leveret EKM (kvæg),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,2_2021,2,2,2: Emissioner fra bedriften samlet ekskl. JB11 og kulstof i jord,Numerisk,CO2e,KLIMA,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_KLIMA,initiatives,NA,NA,NA,NA,NA,NA
+3,18_2021,18,18,18: Tiltag mod jordpakning,Skala,1-7 point,MARKJORDENS FRUGTBARHED,Aktiv
+12345,37_2023,37,37,37: Udbytte korn (mark),Numerisk,Hkg/ha,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,22_2021,22,22,22: Nyinfektionsprocenten (kvæg),Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,41_2023,41,41,41: Soliditetsgraden,Numerisk,Pct.,ØKONOMISK ROBUSTHED,Aktiv
+Ja,7_2021,7,7,7: NaturTjek,Kategorisk,Ja/Nej,BIODIVERSITET,Aktiv
+3,15_2023,15,15,15: Sædskifte,Skala,1-4 point,MARKJORDENS FRUGTBARHED,Aktiv
+3,15_2022,15,15,15: Sædskifte,Skala,1-4 point,MARKJORDENS FRUGTBARHED,Aktiv
+3,47_2022,47,47,47: Vi er åbne og imødekommende om vores virksomhed,Skala,1-5 point,LEDELSE,Aktiv
+12345,28_2021,28,28,28: Kg EKM leveret pr. årsko (kvæg),Numerisk,Kg/årsko,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,38_2022,38,38,38: Fremstillingspris grovfoder (mark),Numerisk,Kr./FEN,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,44_2022,44,44,44: Vi anvender driftsbudget for planlægning og opfølgning,Numerisk,1-5 point,LEDELSE,Aktiv
+12345,11_2021,11,11,11: Planteværn (Belastningstal),Numerisk,B/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,6_2021,6,6,6: Emissioner fra foderimport - grise og fjerkræ,Numerisk,CO2e,KLIMA,Aktiv
+12345,19_2021,19,19,"19: Dødelighed (kvæg, grise, fjerkræ)",Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_KLIMA,initiatives,NA,NA,NA,NA,NA,NA
+12345,29_2022,29,29,29: Fremstillingspris smågrise (30 kg) (grise),Numerisk,Kr./gris,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,19_2022,19,19,"19: Dødelighed (kvæg, grise, fjerkræ)",Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_ARBEJDSFORHOLD,initiatives,NA,NA,NA,NA,NA,NA
+Nej,13_2022,13,13,13: Efterlevelse af N og P normer,Kategorisk,Ja/Nej,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,37_2021,37,37,37: Udbytte korn (mark),Numerisk,Hkg/ha,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,41_2022,41,41,41: Soliditetsgraden,Numerisk,Pct.,ØKONOMISK ROBUSTHED,Aktiv
+3,46_2023,46,46,46: Vi søger inspiration og sparring fra personer udenfor virksomheden,Skala,1-5 point,LEDELSE,Aktiv
+12345,8_2023,8,8,8: Ammoniakfordampning i marken,Numerisk,Kg N/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,41_2021,41,41,41: Soliditetsgraden,Numerisk,Pct.,ØKONOMISK ROBUSTHED,Aktiv
+3,51_2022,51,51,51: Vi informerer om og involverer medarbejderne i virksomhedens drift og udvikling,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+12345,28_2023,28,28,28: Kg EKM leveret pr. årsko (kvæg),Numerisk,Kg/årsko,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,37_2022,37,37,37: Udbytte korn (mark),Numerisk,Hkg/ha,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,52_2023,52,52,52: Vi har fokus på sundhed og trivsel i den daglige ledelse og drift af virksomheden,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_ØKONOMISK ROBUSTHED,initiatives,NA,NA,NA,NA,NA,NA
+12345,4_2021,4,4,4: Emission fra lattergas i marken - planteavl,Numerisk,CO2e,KLIMA,Aktiv
+12345,3_2022,3,3,3: Emissioner fra bedriften samlet inkl. JB11 og kulstof i jord,Numerisk,CO2e,KLIMA,Aktiv
+Nej,20_2022,20,20,"20: Hjerteordning (kvæg, grise, fjerkræ)",Kategorisk,Ja/Nej,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+3,43_2022,43,43,43: Vi anvender aktivt vores strategi i ledelsen af virksomheden,Skala,1-5 point,LEDELSE,Aktiv
+12345,10_2023,10,10,10: Fosforoverskud,Numerisk,Kg P/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+3,43_2023,43,43,43: Vi anvender aktivt vores strategi i ledelsen af virksomheden,Skala,1-5 point,LEDELSE,Aktiv
+3,50_2022,50,50,50: Vi forebygger arbejdsulykker og følger op,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+Ja,20_2021,20,20,"20: Hjerteordning (kvæg, grise, fjerkræ)",Kategorisk,Ja/Nej,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,5_2023,5,5,5: Emission fra enterisk metan - kvæg,Numerisk,CO2e,KLIMA,Aktiv
+12345,1_2022,1,1,1: Emissioner pr. produkt,Numerisk,CO2e,KLIMA,Aktiv
+12345,5_2021,5,5,5: Emission fra enterisk metan - kvæg,Numerisk,CO2e,KLIMA,Aktiv
+12345,10_2022,10,10,10: Fosforoverskud,Numerisk,Kg P/ha,VANDMILJØ OG LUFTKVALITET,Aktiv
+12345,1_2021,1,1,1: Emissioner pr. produkt,Numerisk,CO2e,KLIMA,Aktiv
+12345,31_2021,31,31,31: Producerede grise pr. årsso+gylt (grise),Numerisk,Grise/årsso,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,42_2022,42,42,"42: Vi har en strategi for virksomheden, der sætter retning for dens udvikling",Skala,1-5 point,LEDELSE,Aktiv
+12345,21_2021,21,21,"21: Antibiotika anvendelse (fjerkræ, grise)",Numerisk,ADD,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+3,17_2022,17,17,17: Tiltag mod erosion,Skala,1-7 point,MARKJORDENS FRUGTBARHED,Aktiv
+12345,3_2023,3,3,3: Emissioner fra bedriften samlet inkl. JB11 og kulstof i jord,Numerisk,CO2e,KLIMA,Aktiv
+12345,32_2023,32,32,32: Fremstillingspris for slagtesvin (grise),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_LEDELSE,initiatives,NA,NA,NA,NA,NA,NA
+12345,24_2021,24,24,24: Trædepudescore (fjerkræ),Numerisk,Point,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,32_2022,32,32,32: Fremstillingspris for slagtesvin (grise),Numerisk,Kr./kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_OPTIMAL RESSOURCEANVENDELSE,initiatives,NA,NA,NA,NA,NA,NA
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_HUSDYRENES SUNDHED OG VELFÆRD,initiatives,NA,NA,NA,NA,NA,NA
+12345,16_2023,16,16,16: Næringsstofindhold,Numerisk,Pct. over og under optimum,MARKJORDENS FRUGTBARHED,Aktiv
+3,46_2021,46,46,46: Vi søger inspiration og sparring fra personer udenfor virksomheden,Skala,1-5 point,LEDELSE,Aktiv
+12345,1_2023,1,1,1: Emissioner pr. produkt,Numerisk,CO2e,KLIMA,Aktiv
+12345,36_2022,36,36,36: Fremstillingspris korn (mark),Numerisk,Kr./hkg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,23_2022,23,23,23: Celletal (kvæg),Numerisk,Celler pr. ml. mælk,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,33_2021,33,33,33: Foder pr. kg tilvækst (grise),Numerisk,FE/kg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_OPTIMAL RESSOURCEANVENDELSE,initiatives,NA,NA,NA,NA,NA,NA
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_curr_ØKONOMISK ROBUSTHED,initiatives,NA,NA,NA,NA,NA,NA
+12345,25_2022,25,25,25: Kassationsprocent (fjerkræ),Numerisk,Pct.,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,6_2022,6,6,6: Emissioner fra foderimport - grise og fjerkræ,Numerisk,CO2e,KLIMA,Aktiv
+12345,36_2023,36,36,36: Fremstillingspris korn (mark),Numerisk,Kr./hkg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+3,42_2021,42,42,"42: Vi har en strategi for virksomheden, der sætter retning for dens udvikling",Skala,1-5 point,LEDELSE,Aktiv
+12345,23_2021,23,23,23: Celletal (kvæg),Numerisk,Celler pr. ml. mælk,HUSDYRENES SUNDHED OG VELFÆRD,Aktiv
+12345,36_2021,36,36,36: Fremstillingspris korn (mark),Numerisk,Kr./hkg,OPTIMAL RESSOURCEANVENDELSE,Aktiv
+12345,45_2022,45,45,45: Vi har planer for at sikre den fortsatte drift ved kritiske nedbrud og truende kriser,Numerisk,1-5 point,LEDELSE,Aktiv
+12345,2_2022,2,2,2: Emissioner fra bedriften samlet ekskl. JB11 og kulstof i jord,Numerisk,CO2e,KLIMA,Aktiv
+3,49_2021,49,49,49: Vi bruger de lovpligtige indsatser for arbejdssikkerhed,Skala,1-5 point,ARBEJDSFORHOLD,Aktiv
+12345,40_2022,40,40,40: Afkastningsgraden,Numerisk,Pct.,ØKONOMISK ROBUSTHED,Aktiv
+- tiltag 1 - tiltag 2 -tiltag3,initiatives_fut_VANDMILJØ OG LUFTKVALITET,initiatives,NA,NA,NA,NA,NA,NA
