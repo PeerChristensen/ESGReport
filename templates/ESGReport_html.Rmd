@@ -65,14 +65,9 @@ intro <- df %>%
   filter(input_name == "report_intro") %>% 
   pull(input_value)
 
-intro <- "For LaTeX output, the first class name will be used as the LaTeX environment name. You should also provide an attribute named data-latex in the Div block, which will be the arguments of the environment. This attribute can be an empty string if the environment does not need arguments. We show two simple examples below. The first example uses the verbatim environment in LaTeX, which does not have any arguments:"
-
 facts <- df %>% 
   filter(input_name == "report_facts") %>% 
   pull(input_value)
-
-facts <- "- For LaTeX output, the first class name will be used as the LaTeX environment name - We show two simple examples below. The first example uses the verbatim environment in LaTeX, which does not have any arguments - This attribute can be an empty string if the environment does not need arguments."
-
 
 # get intitiatives
 initiatives_df <- df %>%
@@ -153,7 +148,7 @@ for(i in themes_list){
       filter(indicatorTheme == i) %>%
       select(-indicatorTheme) %>%
       gt() %>%
-      cols_width(Indikator ~ px(300),everything() ~ px(80)) %>%
+      cols_width(Indikator ~ pct(80),everything() ~ pct(20)) %>%
       tab_options(column_labels.font.weight="bold") %>%
       opt_stylize(style = 1, color = "green", 
                   add_row_striping = TRUE)

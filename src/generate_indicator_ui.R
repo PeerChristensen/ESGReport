@@ -6,46 +6,46 @@
 # 4. create accordionitem for each theme in selection
 
 # MAIN FUNCTION
-generate_indicators <- function(selected_indicators) {
+generate_indicators <- function(selected_indicators, selected_years) {
   
   ids <- map(selected_indicators,str_split,":", simplify=T) %>% 
     map(1) %>% 
     unlist()
   
   indicator_info <- load_indicators(ids)
-  klima <- indicator_info %>% keep(~.$indicatorTheme == "KLIMA") %>% map(create_ui_inputs) 
+  klima <- indicator_info %>% keep(~.$indicatorTheme == "KLIMA") %>% map(create_ui_inputs,selected_years) 
   klima_text_input <- create_text_inputs("KLIMA")
   klima <- list.append(klima,klima_text_input)
   
-  bio <- indicator_info %>% keep(~.$indicatorTheme == "BIODIVERSITET") %>% map(create_ui_inputs)
+  bio <- indicator_info %>% keep(~.$indicatorTheme == "BIODIVERSITET") %>% map(create_ui_inputs,selected_years)
   bio_text_input <- create_text_inputs("BIODIVERSITET")
   bio <- list.append(bio,bio_text_input)
   
-  vand <- indicator_info %>% keep(~.$indicatorTheme == "VANDMILJØ OG LUFTKVALITET") %>% map(create_ui_inputs)
+  vand <- indicator_info %>% keep(~.$indicatorTheme == "VANDMILJØ OG LUFTKVALITET") %>% map(create_ui_inputs,selected_years)
   vand_text_input <- create_text_inputs("VANDMILJØ OG LUFTKVALITET")
   vand <- list.append(vand,vand_text_input)
   
-  mark <- indicator_info %>% keep(~.$indicatorTheme == "MARKJORDENS FRUGTBARHED") %>% map(create_ui_inputs)
+  mark <- indicator_info %>% keep(~.$indicatorTheme == "MARKJORDENS FRUGTBARHED") %>% map(create_ui_inputs,selected_years)
   mark_text_input <- create_text_inputs("MARKJORDENS FRUGTBARHED")
   mark <- list.append(mark,mark_text_input)
   
-  husdyr <- indicator_info %>% keep(~.$indicatorTheme == "HUSDYRENES SUNDHED OG VELFÆRD") %>% map(create_ui_inputs)
+  husdyr <- indicator_info %>% keep(~.$indicatorTheme == "HUSDYRENES SUNDHED OG VELFÆRD") %>% map(create_ui_inputs,selected_years)
   husdyr_text_input <- create_text_inputs("HUSDYRENES SUNDHED OG VELFÆRD")
   husdyr <- list.append(husdyr,husdyr_text_input)
   
-  ressource <- indicator_info %>% keep(~.$indicatorTheme == "OPTIMAL RESSOURCEANVENDELSE") %>% map(create_ui_inputs)
+  ressource <- indicator_info %>% keep(~.$indicatorTheme == "OPTIMAL RESSOURCEANVENDELSE") %>% map(create_ui_inputs,selected_years)
   ressource_text_input <- create_text_inputs("OPTIMAL RESSOURCEANVENDELSE")
   ressource <- list.append(ressource,ressource_text_input)
   
-  oekonomi <- indicator_info %>% keep(~.$indicatorTheme == "ØKONOMISK ROBUSTHED") %>% map(create_ui_inputs)
+  oekonomi <- indicator_info %>% keep(~.$indicatorTheme == "ØKONOMISK ROBUSTHED") %>% map(create_ui_inputs,selected_years)
   oekonomi_text_input <- create_text_inputs("ØKONOMISK ROBUSTHED")
   oekonomi <- list.append(oekonomi,oekonomi_text_input)
   
-  ledelse <- indicator_info %>% keep(~.$indicatorTheme == "LEDELSE") %>% map(create_ui_inputs)
+  ledelse <- indicator_info %>% keep(~.$indicatorTheme == "LEDELSE") %>% map(create_ui_inputs,selected_years)
   ledelse_text_input <- create_text_inputs("LEDELSE")
   ledelse <- list.append(ledelse,ledelse_text_input)
   
-  arbejde <- indicator_info %>% keep(~.$indicatorTheme == "ARBEJDSFORHOLD") %>% map(create_ui_inputs)
+  arbejde <- indicator_info %>% keep(~.$indicatorTheme == "ARBEJDSFORHOLD") %>% map(create_ui_inputs,selected_years)
   arbejde_text_input <- create_text_inputs("ARBEJDSFORHOLD")
   arbejde <- list.append(arbejde,arbejde_text_input)
   
@@ -115,64 +115,52 @@ get_input_for_indicator_ui <- function(indicatorID) {
 }
 
 
-create_ui_inputs <- function(indicator) {
+create_ui_inputs <- function(indicator,selected_years) {
   
+  inputs <- NULL
   year <- year(now())
   
-  if (indicator['indicatorType'] == "Numerisk") {
+  for (i in selected_years) {
     
-    ui <- column(12,
-           hr(),
-           p(indicator['indicatorText'],style = "font-size: 20px;"),
-           p(indicator['indicatorUnit'], id = "unit"),
-             fluidRow(
-               column(3, numericInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), value=12345)), # change back to NA
-               column(3, numericInput(glue("{indicator['indicatorID']}_{year-1}"),glue("{year-1}"), value = 12345)),
-               column(3, numericInput(glue("{indicator['indicatorID']}_{year-2}"), glue("{year-2}"), value = 12345))
-             )
-          )
+    # numeric
+    if (indicator['indicatorType'] == "Numerisk") {
+      if (i == year) {
+        inputs[[i]] <- column(3, numericInput(glue("{indicator['indicatorID']}_{i}"),glue("Mål {i}"), value=12345))
+      } else {
+        inputs[[i]] <- column(3, numericInput(glue("{indicator['indicatorID']}_{i}"),glue("{i}"), value=12345))
+      }
+    
+      # categorical
+    } else if (indicator['indicatorType'] == "Kategorisk") {
+        if (i == year) {
+          inputs[[i]] <- column(3, selectInput(glue("{indicator['indicatorID']}_{i}"),glue("Mål {i}"), 
+                                            choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected="ja",selectize=T))
+        } else {
+          inputs[[i]] <- column(3, selectInput(glue("{indicator['indicatorID']}_{i}"),glue("{i}"), 
+                                            choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected="ja",selectize=T))
+        }
+      # scale
+    } else if (indicator['indicatorType'] == "Skala") {
+          if (i == year) {
+            inputs[[i]] <- column(3, numericInput(glue("{indicator['indicatorID']}_{i}"),glue("Mål {i}"), 
+                                                  min = indicator['indicatorScaleMin'],
+                                                  max = indicator['indicatorScaleMax'],
+                                                  value = 3)) # NA
+          } else {
+            inputs[[i]] <- column(3, numericInput(glue("{indicator['indicatorID']}_{i}"),glue("{i}"), 
+                                                  min = indicator['indicatorScaleMin'],
+                                                  max = indicator['indicatorScaleMax'],
+                                                  value = 3)) # NA
+          }
+    }
   }
   
-  else if (indicator['indicatorType'] == "Kategorisk") {
-    
-    ui <- column(12,
-                 hr(),
-                 p(indicator['indicatorText'],style = "font-size: 20px;"),
-                 p(indicator['indicatorUnit'], id = "unit"),
-                 fluidRow(
-                   column(3, selectInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), 
-                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected="ja",selectize=T)),
-                   column(3, selectInput(glue("{indicator['indicatorID']}_{year-1}"), glue("{year-1}"), 
-                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected="Nej",selectize=T)),
-                   column(3, selectInput(glue("{indicator['indicatorID']}_{year-2}"), glue("{year-2}"), 
-                                         choices = c("",unlist(indicator["indicatorChoices"],use.names=F)),selected="Ja",selectize=T)),
-                   style='padding-bottom:75px;'
-                 )
-    )
-  }
-  
-  else if (indicator['indicatorType'] == "Skala") {
-    
-    ui <- column(12,
-                 hr(),
-                 p(indicator['indicatorText'],style = "font-size: 20px;"),
-                 p(indicator['indicatorUnit'], id = "unit"),
-                 fluidRow(
-                   column(3, numericInput(glue("{indicator['indicatorID']}_{year}"),glue("Mål {year}"), 
-                                          min = indicator['indicatorScaleMin'],
-                                          max = indicator['indicatorScaleMax'],
-                                          value = 3)), # back to NA
-                   column(3, numericInput(glue("{indicator['indicatorID']}_2022"),glue("{year-1}"), 
-                                          min = indicator['indicatorScaleMin'],
-                                          max = indicator['indicatorScaleMax'],
-                                          value = 3)),
-                   column(3, numericInput(glue("{indicator['indicatorID']}_2021"),glue("{year-2}"), 
-                                          min = indicator['indicatorScaleMin'],
-                                          max = indicator['indicatorScaleMax'],
-                                          value = 3))
-                   )
-    )
-  }
+  ui <- column(12,
+               hr(),
+               p(indicator['indicatorText'],style = "font-size: 20px;"),
+               p(indicator['indicatorUnit'], id = "unit"),
+               fluidRow(inputs)
+  )
 }
 
 create_text_inputs <- function(theme) {

@@ -148,7 +148,7 @@ for(i in themes_list){
       filter(indicatorTheme == i) %>%
       select(-indicatorTheme) %>%
       gt() %>%
-      cols_width(Indikator ~ px(300),everything() ~ px(80)) %>%
+      cols_width(Indikator ~ pct(80),everything() ~ pct(20)) %>%
       tab_options(column_labels.font.weight="bold") %>%
       opt_stylize(style = 1, color = "green", 
                   add_row_striping = TRUE)

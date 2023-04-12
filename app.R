@@ -27,6 +27,9 @@ indicators <- split(indicator_texts,indicator_themes)[theme_order]
 # see notes
 indicators$BIODIVERSITET <- list(indicators$BIODIVERSITET)
 
+curr_year <- year(now())
+years <- c(curr_year,curr_year-1,curr_year-2)
+
 # -------------------------------------------
 # User data
 data <- read_csv("data/data.csv")
@@ -119,6 +122,20 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                       `selected-text-format` = "count",
                       `count-selected-text` = "{0} spørgsmål valgt"), 
                     multiple = TRUE),
+                  p("Vælg årstal til udfyldning"),
+                  pickerInput(
+                    inputId = "select_years",
+                    label = NULL, 
+                    choices = years,
+                    options = list(
+                      `actions-box` = TRUE,
+                      `select-all-text` = "Vælg alle",
+                      `deselect-all-text` = "Fravælg alle",
+                      `none-selected-text` = "Intet valgt"#,
+                      #`selected-text-format` = "count",
+                     # `count-selected-text` = "{0} spørgsmål valgt"
+                      ), 
+                    multiple = TRUE),
                   actionButton("gen_indicators", "Udfyld rapport")
                   ),
               uiOutput("report_ui"),
@@ -173,7 +190,8 @@ server <- function(input, output, session) {
     # Generate indicators
     observeEvent(input$gen_indicators, {
       output$indicators <- renderUI({
-        generate_indicators(selected_indicators = input$select_indicators)
+        generate_indicators(selected_indicators = input$select_indicators,
+                            selected_years = input$select_years)
       })
       shinyjs::hide(id = "select_indicators_box")
     })
