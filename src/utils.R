@@ -1,4 +1,5 @@
 
+
 load_indicator_info <- function() {
   
   indicator_files <- list.files("indicators", full.names = T)

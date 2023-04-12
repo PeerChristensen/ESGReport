@@ -181,11 +181,13 @@ create_text_inputs <- function(theme) {
     hr(),
     p("Iværksatte tiltag",style = "font-size: 20px;"),
     textAreaInput(inputId = glue("initiatives_curr_{theme}"), label=NULL,
-                  value = "- tiltag 1 - tiltag 2 -tiltag3")
+                  placeholder = "Separér tiltag med '-'  (Eksempel: - Tiltag 1 - Tiltag 2..)"
+                  )
     ,
     br(),
     p("Fremtidige tiltag",style = "font-size: 20px;"),
     textAreaInput(inputId = glue("initiatives_fut_{theme}"), label=NULL,
-                 value = "- tiltag 1 - tiltag 2 -tiltag3")
+                  placeholder = "Separér tiltag med '-'  (Eksempel: - Tiltag 1 - Tiltag 2..)"
+                  )
     )
 }

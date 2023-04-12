@@ -1,19 +1,11 @@
 
-1. ny ui til gem og download af rapport/data
-  - evt selectInput til valg af format
-2. Tilføj tekstfelter
-  - bullet output?
 
-møde m jens
--kernefortælling - indsæt tekstfelt
--fakta
 
-- under hvert tema, to tekstfelter
-  - iværksatte tiltag
-  - fremtidige tiltag
-  - som bullets
-  
-  
-mulighed for obligatoriske felter
-mulighed for at tilføje billede
+navigering
+vælg årstal
+brug server-del til gen. report
+test docker
+
+
+
 validering af inputs

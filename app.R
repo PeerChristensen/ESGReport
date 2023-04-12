@@ -8,9 +8,9 @@ library(glue)
 library(lubridate)
 library(rlist)
 
-source("utils.R")
-source("generate_indicator_ui.R")
-source("generate_report.R")
+source("src/utils.R")
+source("src/generate_indicator_ui.R")
+source("src/generate_report.R")
 
 # -------------------------------------------
 # indicator selection and data for inputs
@@ -96,14 +96,16 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
     tags$head(includeCSS("www/style.css")),
     tabItems(
       tabItem(tabName = "home",
-              box(title = "Sådan bruger du ESGreen Tool Report",
+              box(width = 9,
+                  title = "Sådan bruger du ESGreen Tool Report",
                   p("text"),
                   p("text"),
                   collapsible = FALSE
                   )
               ),
       tabItem(tabName = "choose",
-              box(title = "Vælg indikatorer",
+              box(width = 9,
+                  title = "Vælg indikatorer",
                   id = "select_indicators_box",
                   pickerInput(
                     inputId = "select_indicators",
@@ -192,7 +194,7 @@ server <- function(input, output, session) {
         content = function(file) {
           tempReport <- file.path(tempdir(), "ESGReport.Rmd")
           tempCSS <- file.path(tempdir(), "report_style.css")
-          file.copy("ESGReport.Rmd", tempReport, overwrite = TRUE)
+          file.copy("templates/ESGReport.Rmd", tempReport, overwrite = TRUE)
           file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
           params <-   reactiveValuesToList(input)
           html_fn <- rmarkdown::render(tempReport,  
@@ -211,7 +213,7 @@ server <- function(input, output, session) {
       content = function(file) {
         tempReport <- file.path(tempdir(), "ESGReport_html.Rmd")
         tempCSS <- file.path(tempdir(), "report_style.css")
-        file.copy("ESGReport_html.Rmd", tempReport, overwrite = TRUE)
+        file.copy("templates/ESGReport_html.Rmd", tempReport, overwrite = TRUE)
         file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
         params <-   reactiveValuesToList(input)
 
