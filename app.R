@@ -7,9 +7,11 @@ library(shinyWidgets)
 library(glue)
 library(lubridate)
 library(rlist)
+library(shinycssloaders)
 
 source("src/utils.R")
 source("src/generate_indicator_ui.R")
+source("src/generate_indicator_ui_std.R")
 source("src/generate_report.R")
 
 # -------------------------------------------
@@ -59,30 +61,17 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                ,
                menuSubItem(text = "Vælg indikatorer",tabName = "choose")
                ),
-      menuItem("Gemte kladder", tabName = "drafts", icon = icon("save")
-               ),
-      menuItem("Tidl. rapporter", tabName = "prev_reports", icon = icon("file"),
+      menuItem("Gemte rapporter", tabName = "prev_reports", icon = icon("save"),
                menuSubItem(text = "22/2/2022",tabName = "prev_1")
                ,
                menuSubItem(text = "1/1/2022",tabName = "prev_2")
-               ),
-      menuItem("Data", tabName = "data", icon = icon("database")
+               )#,
+      #menuItem("Data", tabName = "data", icon = icon("database")
       )
-    )
   ),
   footer = dashboardFooter(left = "Kontakt, copyright info etc.."),
   controlbar = dashboardControlbar(
     id = "controlbar",collapsed = F, pinned =T,
-    column(12,
-           div(style="text-align: center;margin-top: 25px;",
-               actionButton("save", "Gem kladde", width="150px")
-               )
-           ),
-    column(12,
-           div(style="text-align: center;margin-top: 25px;",
-               actionButton("reset", "Start forfra",width="150px")
-               )
-           ),
     column(12,
            div(style="text-align: center;margin-top: 25px;",
                actionButton("complete", "Hent rapport",width="150px")
@@ -91,6 +80,16 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
     column(12,
            div(style="text-align: center;margin-top: 25px;",
                actionButton("add_indicators", "Tilføj indikatorer",width="150px")
+           )
+    ),
+    column(12,
+           div(style="text-align: center;margin-top: 25px;",
+               actionButton("save", "Gem rapport", width="150px")
+           )
+    ),
+    column(12,
+           div(style="text-align: center;margin-top: 250px;",
+               actionButton("reset", "Start forfra",width="150px")
            )
     )
     ),
@@ -101,8 +100,8 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
       tabItem(tabName = "home",
               box(width = 9,
                   title = "Sådan bruger du ESGreen Tool Report",
-                  p("text"),
-                  p("text"),
+                  p("I menuen til venstre kan du under 'Ny rapport' vælge at udfylde en standard ESG-rapport eller selv vælge hvilke indikatorer der skal indgå i din rapport. Du kan også tilgå og redigere i tidligere rapporter."),
+                  p("Menuen til højre hjælper dig til at navigere i værktøjet. Når du har udfyldt en rapport kan du her klikke 'Hent rapport' for at downloade din rapport."),
                   collapsible = FALSE
                   )
               ),
@@ -131,25 +130,24 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
                       `actions-box` = TRUE,
                       `select-all-text` = "Vælg alle",
                       `deselect-all-text` = "Fravælg alle",
-                      `none-selected-text` = "Intet valgt"#,
-                      #`selected-text-format` = "count",
-                     # `count-selected-text` = "{0} spørgsmål valgt"
+                      `none-selected-text` = "Intet valgt"
                       ), 
                     multiple = TRUE),
                   actionButton("gen_indicators", "Udfyld rapport")
                   ),
               uiOutput("report_ui"),
-              uiOutput("indicators"),
-              tableOutput('show_inputs')
+                uiOutput("indicators")              
               ),
       tabItem(tabName = "standard",
-              uiOutput("indicators_std")
-              ),
-      tabItem(tabName = "data",
-              box(title = "Dine data", width=11,
-                  dataTableOutput('userdata')
-                  )
+              uiOutput("report_ui_std"),
+              withSpinner(
+              uiOutput("indicators_std"),color="green")
               )
+      #,
+     # tabItem(tabName = "data",
+      #        box(title = "Dine data", width=11,
+      #            dataTableOutput('userdata')
+      #            )
       )
     )
   )
@@ -158,34 +156,20 @@ ui <- dashboardPage(title = "ESGreen Tool Report",fullscreen = TRUE,
 # SERVER
 
 server <- function(input, output, session) {
-  
-  output$downloadData <- downloadHandler(
-
-    filename = function() {
-      paste("input_data", ".csv", sep = "")
-    },
-    content = function(file) {
-      data = reactiveValuesToList(input)
-      
-      df <- data %>% 
-        stack() 
-        write.csv(df, file, row.names = FALSE)
-    }
-  )
-  
-    observeEvent(input$reset, {
-      session$reload()
-      })
     
     values <- reactiveValues(n_indicators = n_indicators)
+    
+    observeEvent(input$reset, {
+      session$reload()
+    })
     
     # Greet user
     output$welcome <- renderText({ paste0("Hej Niels", input$select_user)})
     
     # Show user data
-    output$userdata <- renderDataTable({
-      user_data %>% filter(AgroID == input$select_user)
-    })
+   # output$userdata <- renderDataTable({
+  #    user_data %>% filter(AgroID == input$select_user)
+  #  })
     
     # Generate indicators
     observeEvent(input$gen_indicators, {
@@ -198,12 +182,13 @@ server <- function(input, output, session) {
     
     output$indicators_std <- renderUI({
       # currently selects all indicators
-      generate_indicators(selected_indicators = indicator_texts)
+      generate_indicators_std(selected_indicators = indicator_texts)
     })
     
     # generate report
     observeEvent(input$complete, {
       output$report_ui <- renderUI({ get_report_ui()})
+      output$report_ui_std <- renderUI({ get_report_ui()})
       }
     )
 

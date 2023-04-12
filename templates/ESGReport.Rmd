@@ -57,8 +57,13 @@ df <- params$params %>%
   mutate(indicatorTheme = str_replace(indicatorTheme, "[a-z+_]*", ""))
 
 # get themes
+themes_order <- c("KLIMA", "BIODIVERSITET",
+                  "VANDMILJØ OG LUFTKVALITET","MARKJORDENS FRUGTBARHED",
+                  "HUSDYRENES SUNDHED OG VELFÆRD", "OPTIMAL RESSOURCEANVENDELSE",  
+                  "ØKONOMISK ROBUSTHED","LEDELSE", "ARBEJDSFORHOLD")
 themes_list <- df %>% pull(indicatorTheme) %>% unique()
 themes_list <- themes_list[!is.na(themes_list)]
+themes_list <- themes_list[order(match(themes_list,themes_order))]
 
 # get intro and facts inputs
 intro <- df %>% 

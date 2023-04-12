@@ -2,7 +2,7 @@
 get_report_ui <- function() {
   
   box(width=9,
-      title = "Hent rapport",
+      title = "Skab rapport",
       p("Titel"),
       textInput("report_title",label=NULL, value = "ESG Rapport"),
       p("Kernefortælling"),

@@ -1,9 +1,4 @@
 
-# update this function to return a UI for indicators to fill in
-# 1. get list of indicatorIDs
-# 2. add a "0" to single digit file names
-# 3. read files
-# 4. create accordionitem for each theme in selection
 
 # MAIN FUNCTION
 generate_indicators <- function(selected_indicators, selected_years) {
