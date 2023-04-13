@@ -21,33 +21,49 @@ get_report_ui <- function() {
       )
 }
 
-get_report_server <- function() {
+get_report_server <- function(input, indicator_info_df) {
 
-    output$generate_report <- downloadHandler(
+  downloadHandler(
+    filename =  "ESGreenToolReport.pdf",
+    content = function(file) {
+      tempReport <- file.path(tempdir(), "ESGReport.Rmd")
+      tempCSS <- file.path(tempdir(), "report_style.css")
+      file.copy("templates/ESGReport.Rmd", tempReport, overwrite = TRUE)
+      file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
+      params <-   reactiveValuesToList(input)
+      html_fn <- rmarkdown::render(tempReport,  
+                                   params = list(
+                                     "params" = params,
+                                     "indicators_df" = indicator_info_df
+                                   ),
+                                   envir = new.env(parent = globalenv()))
       
-      filename = function(){
-        paste0(input$report_title,".pdf")
-      },
-      content = function(file) {
-        # Copy the report file to a temporary directory before processing it, in
-        # case we don't have write permissions to the current working dir (which
-        # can happen when deployed).
-        tempReport <- file.path(tempdir(), "ESGReport.Rmd")
-        file.copy("ESGReport.Rmd", tempReport, overwrite = TRUE)
-        
-        params_df <- NULL
-        for(i in 1:length(names(input))){
-          params_df <- as.data.frame(rbind(params_df,(cbind(names(input)[i],input[[names(input)[i]]]))))
-        }
-        names(params_df) <- c("input_name","input_value")
-        title = input$report_title
-        render_markdown <- function(){
-          rmarkdown::render(tempReport,
-                            output_file = file,
-                            params = list(params_df,title)
-                            #envir = new.env(parent = globalenv())
-          )}
-        render_markdown()
-      }
-    )
+      pagedown::chrome_print(html_fn, file, extra_args = c("--no-sandbox","--disable-gpu"))
+    }
+  )
 }
+
+get_report_server_html <- function(input, indicator_info_df) {
+  downloadHandler(
+    filename =  "ESGreenToolReport.html",
+    content = function(file) {
+      tempReport <- file.path(tempdir(), "ESGReport_html.Rmd")
+      tempCSS <- file.path(tempdir(), "report_style.css")
+      file.copy("templates/ESGReport_html.Rmd", tempReport, overwrite = TRUE)
+      file.copy("www/report_style.css", tempCSS, overwrite = TRUE)
+      params <-   reactiveValuesToList(input)
+      
+      render_markdown <- function(){
+        rmarkdown::render(tempReport,
+                          output_file = file,
+                          params = list(
+                            "params" = params,
+                            "indicators_df" = indicator_info_df
+                          ),
+                          envir = new.env(parent = globalenv())
+        )}
+      render_markdown()
+    }
+  )
+}
+

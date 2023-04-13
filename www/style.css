@@ -23,11 +23,7 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
        border-radius: 5px;
        }
 
-/*
-.card-header {
-        background: green;
-       }
-*/
+
 
 .card-header:hover {
         background: green;
@@ -46,9 +42,3 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
   color: green !important;
 }
 
-/*       
-.card-title w-100 {
-         color: orange !important;
-       }
-       */
-       

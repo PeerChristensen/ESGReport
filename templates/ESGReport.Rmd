@@ -152,11 +152,11 @@ for(i in themes_list){
       arrange(Indikator) %>%
       filter(indicatorTheme == i) %>%
       select(-indicatorTheme) %>%
-      gt() %>%
-      cols_width(Indikator ~ pct(80),everything() ~ pct(20)) %>%
-      tab_options(column_labels.font.weight="bold") %>%
-      opt_stylize(style = 1, color = "green", 
-                  add_row_striping = TRUE)
+      gt::gt() %>%
+      gt::cols_width(Indikator ~ pct(80),everything() ~ pct(20)) %>%
+      gt::tab_options(column_labels.font.weight="bold")# %>%
+      #gt::opt_stylize(style = 1, color = "green", 
+                 # add_row_striping = TRUE)
     )
    )
   cat("\n")

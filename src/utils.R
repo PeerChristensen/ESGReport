@@ -1,5 +1,3 @@
-
-
 load_indicator_info <- function() {
   
   indicator_files <- list.files("indicators", full.names = T)
@@ -29,7 +27,7 @@ create_new_indicator <- function(
     new_indicator_scale_min,
     new_indicator_scale_max,
     new_indicator_status) {
- 
+  
   indicator_id = n_indicators + 1
   tibble(indicatorID = indicator_id,
          indicatorText = paste0(indicator_id, ": ", new_indicator_text),
@@ -44,4 +42,4 @@ create_new_indicator <- function(
            indicatorScaleMax = ifelse(indicatorType == "Skala",indicatorScaleMax,NA),
            indicatorChoices = ifelse(indicatorType == "Kategorisk", indicatorChoices,NA)) %>%
     write_json(glue("indicators/{indicator_id}.json"))
-  }
+}

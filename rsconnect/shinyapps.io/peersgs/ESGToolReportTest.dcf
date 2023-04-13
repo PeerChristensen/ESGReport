@@ -5,10 +5,10 @@ account: peersgs
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 8759795
-bundleId: 7074649
+bundleId: 7086296
 url: https://peersgs.shinyapps.io/ESGToolReportTest/
-when: 1681203215.16673
-lastSyncTime: 1681203215.16674
+when: 1681412395.9162
+lastSyncTime: 1681412395.91624
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: download_test_app.r|ESGReport_files/header-attrs-2.14/header-attrs.js|ESGReport_files/paged-0.13.9/js/config.js|ESGReport_files/paged-0.13.9/js/hooks.js|ESGReport_files/paged-0.13.9/js/paged.js|ESGReport.html|ESGShiny_architecture.drawio.png|indicator_entry_app.R|input_data.csv|notes|playground.R|README.md|report_experimenting_files/header-attrs-2.14/header-attrs.js|report_experimenting_files/paged-0.13.9/js/config.js|report_experimenting_files/paged-0.13.9/js/hooks.js|report_experimenting_files/paged-0.13.9/js/paged.js|report_experimenting.docx|report_experimenting.html|report_experimenting.pdf|TODO|www/user-regular.svg|www/user-solid.svg|archive
+ignoredFiles: data/data.csv|data/themes_list|data/user_data.csv|Dockerfile|ESGShiny_architecture.drawio.png|google-chrome|install_packages.R|notes|playground.R|README.md|TODO|www/user-regular.svg|www/user-solid.svg|archive

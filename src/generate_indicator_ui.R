@@ -55,7 +55,7 @@ generate_indicators <- function(selected_indicators, selected_years) {
                   "ARBEJDSFORHOLD" = arbejde)
   
   accordion(id="accordion", width = 9,
-            accordionItem(title = "KLIMA", klima),
+            accordionItem(title = "KLIMA", klima, collapsed = FALSE),
             accordionItem(title = "BIODIVERSITET", bio),
             accordionItem(title = "VANDMILJØ OG LUFTKVALITET", vand),
             accordionItem(title = "MARKJORDENS FRUGTBARHED", mark),

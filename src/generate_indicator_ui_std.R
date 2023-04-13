@@ -55,7 +55,7 @@ generate_indicators_std <- function(selected_indicators) {
                   "ARBEJDSFORHOLD" = arbejde)
   
   accordion(id="accordion", width = 9,
-            accordionItem(title = "KLIMA", klima),
+            accordionItem(title = "KLIMA", klima, collapsed = FALSE),
             accordionItem(title = "BIODIVERSITET", bio),
             accordionItem(title = "VANDMILJØ OG LUFTKVALITET", vand),
             accordionItem(title = "MARKJORDENS FRUGTBARHED", mark),
@@ -114,7 +114,7 @@ create_ui_inputs_std <- function(indicator) {
   
   inputs <- NULL
   curr_year <- year(now())
-  years <- c(curr_year,curr_year-1,curr_year-2)
+  years <- as.character(c(curr_year,curr_year-1,curr_year-2))
   
   for (i in years) {
     
