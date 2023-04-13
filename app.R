@@ -25,7 +25,6 @@ indicator_texts <- indicator_info$indicator_text
 indicator_types <- indicator_info$indicator_types %>% unique()
 indicator_themes <- indicator_info$indicator_themes
 theme_order <- indicator_themes %>% unique()
-#themes_list <- read_lines("data/themes_list")
 n_indicators <- length(indicator_texts) 
 indicators <- split(indicator_texts,indicator_themes)[theme_order]
 
@@ -128,7 +127,7 @@ server <- function(input, output, session) {
       output$select_indicators <- renderUI({ select_indicators(indicators, years) })
       
     } else if (input$select_report_type == "Standardrapport") {
-      output$indicators_std <- renderUI({ generate_indicators_std(indicators) })
+      output$indicators_std <- renderUI({ generate_indicators_std(selected_indicators = indicators) })
     }
   })
   

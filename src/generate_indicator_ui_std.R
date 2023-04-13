@@ -3,8 +3,8 @@
 # MAIN FUNCTION
 generate_indicators_std <- function(selected_indicators) {
   
-  ids <- map(selected_indicators,str_split,":", simplify=T) %>% 
-    map(1) %>% 
+  ids <- map(selected_indicators,str_extract,"[^:]+") %>% 
+    #map(1) %>% 
     unlist()
   
   indicator_info <- load_indicators_std(ids)

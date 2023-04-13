@@ -38,7 +38,7 @@ get_report_server <- function(input, indicator_info_df) {
                                    ),
                                    envir = new.env(parent = globalenv()))
       
-      pagedown::chrome_print(html_fn, file, extra_args = c("--no-sandbox","--disable-gpu"))
+      pagedown::chrome_print(html_fn, file, extra_args = c("--no-sandbox"))
     }
   )
 }

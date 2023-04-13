@@ -11,7 +11,7 @@ output:
     css: "www/report_style.css"
   # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
     self_contained: false
-#knit: pagedown::chrome_print
+knit: pagedown::chrome_print
 ---
 
 ```{r setup, include=FALSE}
@@ -27,7 +27,7 @@ library(knitr)
 library(kableExtra)
 library(gt)
 
-df <- read_csv("input_data3.csv") %>%
+df <- read_csv("archive/input_data3.csv") %>%
   mutate(
     indicatorTheme = ifelse(
       is.na(indicatorTheme),input_name,indicatorTheme
@@ -124,7 +124,7 @@ for(i in themes_list){
       gt() %>%
       cols_width(Indikator ~ px(300),everything() ~ px(80)) %>%
       tab_options(column_labels.font.weight="bold") %>%
-      opt_stylize(style = 1, color = "green", 
+      opt_stylize(style = 6, color = "green", 
                   add_row_striping = TRUE)
     )
    )

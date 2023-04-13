@@ -154,9 +154,9 @@ for(i in themes_list){
       select(-indicatorTheme) %>%
       gt::gt() %>%
       gt::cols_width(Indikator ~ pct(80),everything() ~ pct(20)) %>%
-      gt::tab_options(column_labels.font.weight="bold")# %>%
-      #gt::opt_stylize(style = 1, color = "green", 
-                 # add_row_striping = TRUE)
+      gt::tab_options(column_labels.font.weight="bold") %>%
+      gt::opt_stylize(style = 6, color = "green", 
+                  add_row_striping = TRUE)
     )
    )
   cat("\n")
